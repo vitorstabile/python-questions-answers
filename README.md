@@ -31,6 +31,7 @@
     - [Chapter 2 - Part 11: When and why would you use the global keyword?](#chapter2part11)
     - [Chapter 2 - Part 12: How does global affect variable scope?](#chapter2part12)
     - [Chapter 2 - Part 13: What are the potential pitfalls or drawbacks of using global variables?](#chapter2part13)
+    - [Chapter 2 - Part 14: What are f-strings in Python?](#chapter2part14)
 4. [Chapter 4: Control Flow](#chapter4)
     - [Chapter 4 - Part 1: How do you write an if statement in Python?](#chapter4part1)
     - [Chapter 4 - Part 2: What are the different types of loops in Python?](#chapter4part2)
@@ -75,6 +76,9 @@
     - [Chapter 5 - Part 28: How do you implement a queue using a list?](#chapter5part28)
     - [Chapter 5 - Part 29: What are linked lists?](#chapter5part29)
     - [Chapter 5 - Part 30: How do you implement a binary tree in Python?](#chapter5part30)
+    - [Chapter 5 - Part 31: What is a hash table?](#chapter5part31)
+    - [Chapter 5 - Part 32: What is list slicing?](#chapter5part32)
+    - [Chapter 5 - Part 33: How do you unpack a list or a tuple?](#chapter5part33)
 6. [Chapter 6: Functions](#chapter6)
     - [Chapter 6 - Part 1: How do you define a function in Python?](#chapter6part1)
     - [Chapter 6 - Part 2: What are default arguments in Python?](#chapter6part2)
@@ -104,6 +108,11 @@
     - [Chapter 7 - Part 13: What are mixins in Python?](#chapter7part13)
     - [Chapter 7 - Part 14: What is the super() function used for?](#chapter7part14)
     - [Chapter 7 - Part 15: How do you create a singleton class in Python?](#chapter7part15)
+    - [Chapter 7 - Part 16: How do you implement method resolution order (MRO)?](#chapter7part16)
+    - [Chapter 7 - Part 17: What are the differences between @staticmethod and @classmethod?](#chapter7part17)
+    - [Chapter 7 - Part 18: How do you use properties in classes?](#chapter7part18)
+    - [Chapter 7 - Part 19: What are class variables vs instance variables?](#chapter7part19)
+    - [Chapter 7 - Part 20: How do you prevent attribute modification in a class?](#chapter7part20)
 8. [Chapter 8: Modules and Packages](#chapter8)
     - [Chapter 8 - Part 1: What are modules in Python?](#chapter8part1)
     - [Chapter 8 - Part 2: How do you import a module?](#chapter8part2)
@@ -141,18 +150,53 @@
     - [Chapter 12 - Part 3: What is the yield keyword?](#chapter12part3)
     - [Chapter 12 - Part 4: What is the difference between a generator and a normal function?](#chapter12part4)
     - [Chapter 12 - Part 5: What are coroutines in Python?](#chapter12part5)
+    - [Chapter 12 - Part 6: What is metaprogramming in Python?](#chapter12part6)
+    - [Chapter 12 - Part 7: How do you create a metaclass in Python?](#chapter12part7)
+    - [Chapter 12 - Part 8: What are decorators, and how do you implement them?](#chapter12part8)
+    - [Chapter 12 - Part 9: What is the purpose of the __call__ method?](#chapter12part9)
+    - [Chapter 12 - Part 10: How do you use property decorators in Python?](#chapter12part10)
+    - [Chapter 12 - Part 11: What are Python descriptors?](#chapter12part11)
+    - [Chapter 12 - Part 12: How do you implement a singleton pattern in Python?](#chapter12part12)
+    - [Chapter 12 - Part 13: What is the purpose of the typing module?](#chapter12part13)
+    - [Chapter 12 - Part 14: How do you create a custom exception in Python?](#chapter12part14)
+    - [Chapter 12 - Part 15: What are the differences between synchronous and asynchronous I/O?](#chapter12part15)
 13. [Chapter 13: Libraries and Frameworks](#chapter13)
     - [Chapter 13 - Part 1: What is NumPy?](#chapter13part1)
-    - [Chapter 1 - Part 2: What is Pandas used for?](#chapter13part2)
-    - [Chapter 1 - Part 3: How do you create a DataFrame in Pandas?](#chapter13part3)
-    - [Chapter 1 - Part 4: What is Matplotlib?](#chapter13part4)
-    - [Chapter 1 - Part 5: What is Flask?](#chapter13part5)
-14. [Chapter 14: Data Analysis](#chapter14)
-    - [Chapter 14 - Part 1: How do you handle missing data in Pandas?](#chapter14part1)
-    - [Chapter 14 - Part 2: What is data aggregation in Pandas?](#chapter14part2)
-    - [Chapter 14 - Part 3: How do you merge two DataFrames?](#chapter14part3)
-    - [Chapter 14 - Part 4: What are pivot tables in Pandas?](#chapter14part4)
-    - [Chapter 14 - Part 5: How do you visualize data using Matplotlib?](#chapter14part5)
+    - [Chapter 13 - Part 2: What is Pandas used for?](#chapter13part2)
+    - [Chapter 13 - Part 3: How do you create a DataFrame in Pandas?](#chapter13part3)
+    - [Chapter 13 - Part 4: What is Matplotlib?](#chapter13part4)
+    - [Chapter 13 - Part 5: What is Flask?](#chapter13part5)
+    - [Chapter 13 - Part 6: What is SQLAlchemy?](#chapter13part6)
+    - [Chapter 13 - Part 7: How do you connect to a database using SQLAlchemy?](#chapter13part7)
+    - [Chapter 13 - Part 8: What is the use of the requests library?](#chapter13part8)
+    - [Chapter 13 - Part 9: How do you make a GET request using requests?](#chapter13part9)
+    - [Chapter 13 - Part 10: What is the purpose of the BeautifulSoup library?](#chapter13part10)
+    - [Chapter 13 - Part 11: What is the purpose of the datetime module?](#chapter13part11)
+    - [Chapter 13 - Part 12: How do you perform date arithmetic in Python?](#chapter13part12)
+    - [Chapter 13 - Part 13: What is the use of the time module?](#chapter13part13)
+    - [Chapter 13 - Part 14: How do you format dates in Python?](#chapter13part14)
+    - [Chapter 13 - Part 15: What is the difference between strptime() and strftime()?](#chapter13part15)
+    - [Chapter 13 - Part 16: What is Scrapy?](#chapter13part16)
+    - [Chapter 13 - Part 17: How do you use Selenium for web testing?](#chapter13part17)
+    - [Chapter 13 - Part 18: What is the xml.etree.ElementTree module used for?](#chapter13part18)
+    - [Chapter 13 - Part 19: How do you handle Excel files in Python?](#chapter13part19)
+    - [Chapter 13 - Part 20: What are the main features of the Pillow library?](#chapter13part20)
+14. [Chapter 14: Data Analysis abd Data Manipulation](#chapter14)
+    - [Chapter 14 - Part 1: How do you filter data in Pandas?](#chapter14part1)
+    - [Chapter 14 - Part 2: What is the groupby() function in Pandas?](#chapter14part2)
+    - [Chapter 14 - Part 3: How do you concatenate DataFrames in Pandas?](#chapter14part3)
+    - [Chapter 14 - Part 4: What is data normalization?](#chapter14part4)
+    - [Chapter 14 - Part 5: How do you pivot a DataFrame in Pandas?](#chapter14part5)
+    - [Chapter 14 - Part 6: How do you handle missing data in Pandas?](#chapter14part6)
+    - [Chapter 14 - Part 7: What is data aggregation in Pandas?](#chapter14part7)
+    - [Chapter 14 - Part 8: How do you merge two DataFrames?](#chapter14part8)
+    - [Chapter 14 - Part 9: What are pivot tables in Pandas?](#chapter14part9)
+    - [Chapter 14 - Part 10: How do you visualize data using Matplotlib?](#chapter14part10)
+    - [Chapter 14 - Part 11: What is exploratory data analysis (EDA)?](#chapter14part11)
+    - [Chapter 14 - Part 12: How do you visualize data using seaborn?](#chapter14part12)
+    - [Chapter 14 - Part 13: What is the purpose of the numpy library?](#chapter14part13)
+    - [Chapter 14 - Part 14: How do you handle categorical variables in data analysis?](#chapter14part14)
+    - [Chapter 14 - Part 15: How do you perform feature engineering in Python?](#chapter14part15)
 15. [Chapter 15: Regular Expressions](#chapter15)
     - [Chapter 15 - Part 1: What is a regular expression?](#chapter15part1)
     - [Chapter 15 - Part 2: How do you use the re module in Python?](#chapter15part2)
@@ -209,27 +253,24 @@ Miscellaneous
 163. What are context managers?
 164. How do you implement a context manager using a class?
 165. What is the itertools module?
-
-
-Python Features
-126. What is list slicing?
-127. How do you unpack a list or a tuple?
-128. What are f-strings in Python?
+271. How do you create a queue using collections.deque?
+272. What are the differences between set() and frozenset()?
+273. How do you format numbers in Python?
+274. What are namedtuples?
+275. How do you create a custom iterator?
 129. How do you handle command-line arguments in Python?
 130. What are the differences between Python 2 and Python 3?
-More Libraries
-131. What is SQLAlchemy?
-132. How do you connect to a database using SQLAlchemy?
-133. What is the use of the requests library?
-134. How do you make a GET request using requests?
-135. What is the purpose of the BeautifulSoup library?
 Performance and Optimization
 136. How can you measure the performance of a Python script?
 137. What is the purpose of the timeit module?
 138. How do you optimize memory usage in Python?
 139. What are some common performance pitfalls in Python?
 140. How do you use caching in Python?
-
+186. How do you optimize database queries in Python?
+187. What is profiling, and how can you profile a Python application?
+188. How do you use cProfile for performance analysis?
+189. What are some ways to reduce memory usage in Python?
+190. How do you use generators to improve performance?
 Concurrency
 146. What is multithreading in Python?
 147. How do you create a thread in Python?
@@ -248,8 +289,6 @@ Web Development
 158. How do you handle HTTP requests in Flask?
 159. What is Django?
 160. How do you create a model in Django?
-
-
 Debugging
 166. How do you use the pdb module for debugging?
 167. What are some common debugging techniques in Python?
@@ -273,12 +312,6 @@ Security
 183. What is XSS (Cross-Site Scripting)?
 184. How can you secure sensitive information in your Python application?
 185. What are best practices for password hashing in Python?
-Performance Optimization
-186. How do you optimize database queries in Python?
-187. What is profiling, and how can you profile a Python application?
-188. How do you use cProfile for performance analysis?
-189. What are some ways to reduce memory usage in Python?
-190. How do you use generators to improve performance?
 Asynchronous Programming
 191. What is asynchronous programming?
 192. How do you create an asynchronous function in Python?
@@ -297,26 +330,12 @@ Web Frameworks
 203. What is URL routing in Flask?
 204. How do you use templates in Flask?
 205. What is Django's ORM?
-Data Manipulation
-206. How do you filter data in Pandas?
-207. What is the groupby() function in Pandas?
-208. How do you concatenate DataFrames in Pandas?
-209. What is data normalization?
-210. How do you pivot a DataFrame in Pandas?
-Advanced Python Concepts
-211. What is metaprogramming in Python?
-212. How do you create a metaclass in Python?
-213. What are decorators, and how do you implement them?
-214. What is the purpose of the __call__ method?
-215. How do you use property decorators in Python?
 System Design
 216. How do you design a RESTful API?
 217. What is microservices architecture?
 218. How do you handle versioning in APIs?
 219. What is the role of API gateways?
 220. How do you design for scalability in web applications?
-
-
 Scripting and Automation
 226. How do you create a command-line interface (CLI) in Python?
 227. What are some common use cases for Python scripting?
@@ -347,48 +366,17 @@ Cloud Computing
 248. How do you interact with AWS S3 in Python?
 249. What is Azure Functions?
 250. How do you manage cloud resources using Python?
-Additional Libraries and Tools
-251. What is Scrapy?
-252. How do you use Selenium for web testing?
-253. What is the xml.etree.ElementTree module used for?
-254. How do you handle Excel files in Python?
-255. What are the main features of the Pillow library?
-Further Advanced Concepts
-256. What are Python descriptors?
-257. How do you implement a singleton pattern in Python?
-258. What is the purpose of the typing module?
-259. How do you create a custom exception in Python?
-260. What are the differences between synchronous and asynchronous I/O?
-Algorithm and Data Structure Questions
+Algorithm
 261. How do you implement a binary search algorithm?
 262. What is the time complexity of quicksort?
 263. How do you find the maximum value in a list?
 264. How do you check if a string is a palindrome?
-265. What is a hash table?
 Common Python Idioms
 266. What is the Pythonic way to swap two variables?
 267. How do you check for the existence of an element in a list?
 268. What is the purpose of the any() and all() functions?
 269. How do you create a dictionary from two lists?
 270. What is the use of the join() method for strings?
-Miscellaneous Technical Questions
-271. How do you create a queue using collections.deque?
-272. What are the differences between set() and frozenset()?
-273. How do you format numbers in Python?
-274. What are namedtuples?
-275. How do you create a custom iterator?
-Advanced OOP Concepts
-276. How do you implement method resolution order (MRO)?
-277. What are the differences between @staticmethod and @classmethod?
-278. How do you use properties in classes?
-279. What are class variables vs instance variables?
-280. How do you prevent attribute modification in a class?
-Data Analysis with Python
-281. What is exploratory data analysis (EDA)?
-282. How do you visualize data using seaborn?
-283. What is the purpose of the numpy library?
-284. How do you handle categorical variables in data analysis?
-285. How do you perform feature engineering in Python?
 Functional Programming
 286. What is functional programming?
 287. How do you use higher-order functions in Python?
@@ -407,12 +395,6 @@ Coding Challenges
 298. Write a function to calculate the Fibonacci series.
 299. Implement a function to flatten a nested list.
 300. Write a function to count the occurrences of each character in a string.
-More on Libraries
-301. What is the purpose of the datetime module?
-302. How do you perform date arithmetic in Python?
-303. What is the use of the time module?
-304. How do you format dates in Python?
-305. What is the difference between strptime() and strftime()?
 Final Set of Questions
 306. How do you implement a simple web scraper?
 307. What are some libraries used for web scraping?
