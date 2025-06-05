@@ -2131,15 +2131,613 @@ The else clause for loops can make certain types of code more elegant and readab
 
 #### <a name="chapter4part7"></a>Chapter 4 - Part 7: What is a nested loop in Python?
 
+A nested loop in Python is a loop inside another loop. The "inner" loop executes completely for each iteration of the "outer" loop.
+
+This structure is commonly used when you need to process data in a two-dimensional way, or when you need to perform an action for every combination of elements from two or more collections.
+
+**Concept**:
+
+Imagine you have a grid (like a chessboard or a spreadsheet). To visit every cell, you'd typically go row by row, and for each row, visit every column. This is exactly what nested loops do: the outer loop handles the rows, and the inner loop handles the columns within that row.
+
+Syntax:
+
+Python
+
+```py
+# Outer loop
+for outer_item in outer_iterable:
+    # Inner loop (this entire loop runs for each outer_item)
+    for inner_item in inner_iterable:
+        # Code block inside the inner loop
+        # Access outer_item and inner_item
+```
+
+**How it works (Execution Flow)**:
+
+- The outer loop starts its first iteration. outer_item takes its first value.
+- For this single value of outer_item, the inner loop starts and executes all its iterations completely. inner_item takes on every value from inner_iterable.
+- Once the inner loop finishes, the outer loop proceeds to its second iteration. outer_item takes its second value.
+- Again, for this new outer_item, the inner loop runs through all its iterations from start to finish.
+- This process continues until the outer loop has completed all of its iterations.
+
+**Example 1: Printing a multiplication table**
+
+```py
+# Outer loop for rows
+for i in range(1, 4): # i will be 1, 2, 3
+    # Inner loop for columns
+    for j in range(1, 4): # j will be 1, 2, 3 for each i
+        product = i * j
+        # print(f"{i}*{j}={product}\t", end="") # \t for tab spacing
+        # print(f"{product:2}", end=" ") # Format to 2 spaces for alignment
+        print(f"{product:4}", end="") # Format to 4 spaces for alignment
+    print() # New line after each row (after inner loop completes)
+
+# Output:
+#    1   2   3
+#    2   4   6
+#    3   6   9
+```
+
+**Explanation**:
+
+- When i is 1, j runs from 1 to 3, printing 1*1, 1*2, 1*3.
+- Then a newline is printed.
+- When i is 2, j runs from 1 to 3, printing 2*1, 2*2, 2*3.
+- And so on.
+
+**Example 2: Iterating through nested lists (2D array)**
+
+```py
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for row in matrix: # Outer loop iterates through each sub-list (row)
+    for element in row: # Inner loop iterates through each element in the current row
+        print(element, end=" ")
+    print() # New line after each row
+
+# Output:
+# 1 2 3
+# 4 5 6
+# 7 8 9
+```
+
+**Important Considerations**:
+
+- Performance: Nested loops can be computationally expensive, especially if the inner loop runs many times for each outer loop iteration. Be mindful of their use with very large datasets, as complexity can grow exponentially.
+- Readability: Keep nested loops as shallow as possible. Too many levels of nesting can make code hard to read and understand.
+- ```break``` and ```continue``` in Nested Loops: break and continue only affect the innermost loop they are a part of. To break out of multiple nested loops, you might need a flag variable or a function that returns.
+
+Nested loops are a fundamental pattern for processing structured data and are widely used in algorithms involving grids, matrices, and combinations.
+
 #### <a name="chapter4part8"></a>Chapter 4 - Part 8: How can you use a switch statement in Python?
+
+Historically, Python did not have a built-in switch (or case) statement like many other programming languages (C++, Java, JavaScript, etc.). Before Python 3.10, developers used several common alternatives:
+
+- ```if-elif-else``` Chain (Most Common):
+This is the most straightforward and widely used method for handling multiple conditional branches.
+
+```py
+day = "Tuesday"
+
+if day == "Monday":
+    print("Start of the work week.")
+elif day == "Tuesday":
+    print("Taco Tuesday!")
+elif day == "Wednesday":
+    print("Hump day.")
+else:
+    print("It's another day.")
+```
+
+- **Dictionary Mapping (for simple value-to-action mapping)**:
+
+If you need to map specific input values to corresponding functions or constant results, a dictionary can be a clean and efficient alternative. This is particularly good for dispatching different actions based on a key.
+
+```py
+def handle_add():
+    print("Performing addition.")
+
+def handle_subtract():
+    print("Performing subtraction.")
+
+def handle_default():
+    print("Invalid operation.")
+
+operations = {
+    "add": handle_add,
+    "subtract": handle_subtract,
+    "multiply": lambda: print("Performing multiplication.") # Can use lambda functions
+}
+
+choice = "add"
+# Get the function from the dictionary, or the default handler if not found
+action = operations.get(choice, handle_default)
+action() # Call the chosen function
+
+choice = "divide"
+action = operations.get(choice, handle_default)
+action()
+```
+
+- **Introducing match Statement (Python 3.10+)**:
+
+With Python 3.10, the match statement (also known as "structural pattern matching") was introduced, providing a direct and powerful equivalent to a switch statement, but with much more advanced pattern-matching capabilities.
+
+**Syntax of ```match```:**
+
+```py
+match subject:
+    case pattern_1:
+        # Code to execute if subject matches pattern_1
+    case pattern_2:
+        # Code to execute if subject matches pattern_2
+    case _: # The wildcard pattern, similar to 'default' in switch
+        # Code to execute if no other pattern matches
+```
+
+- ```subject```: The expression or object whose value you want to match.
+- ```case pattern```: Each case defines a pattern to match against the subject. If a match is found, the corresponding code block is executed.
+- ```_``` (wildcard pattern): The underscore _ acts as a wildcard; it matches anything and is typically used as the final case to provide a default behavior, similar to an else in if-elif-else or default in a switch.
+- **No fall-through**: Unlike C-style switch statements, Python's match statement does not have "fall-through" behavior. Only the code block of the first matching case is executed, and then the match statement is exited.
+
+Example using match (Python 3.10+):
+
+```py
+status_code = 404
+
+match status_code:
+    case 200:
+        print("OK - Request successful.")
+    case 400:
+        print("Bad Request - Client error.")
+    case 401 | 403: # Multiple patterns can be combined with | (OR)
+        print("Authentication or Authorization error.")
+    case 404:
+        print("Not Found - Resource not available.")
+    case _: # Default case if no other matches
+        print(f"Unhandled status code: {status_code}")
+
+# Output for status_code = 404:
+# Not Found - Resource not available.
+
+# Example with 401:
+status_code = 401
+match status_code:
+    case 200: pass
+    case 401 | 403: print("Authentication or Authorization error.")
+    case 404: pass
+    case _: pass
+# Output: Authentication or Authorization error.
+```
+
+The match statement is much more powerful than a simple switch as it can match on literal values, sequences, mappings, class instances, and more. It's the modern Pythonic way to handle multi-way branching based on structural patterns.
 
 #### <a name="chapter4part9"></a>Chapter 4 - Part 9: How do you handle exceptions in Python?
 
+In Python, exception handling is the process of responding to errors that occur during the execution of a program. These errors, called exceptions, disrupt the normal flow of the program. By handling exceptions gracefully, you can prevent your program from crashing and provide more robust and user-friendly behavior.
+
+The primary construct for exception handling in Python is the try-except block.
+
+**Basic try-except Structure:**
+
+```py
+try:
+    # Code that might raise an exception
+    # (The "protected" code)
+    result = 10 / 0 # This will raise a ZeroDivisionError
+except ExceptionType:
+    # Code to execute if ExceptionType occurs in the try block
+    print("An error occurred!")
+```
+
+**Explanation**:
+
+- ```try block```: You place the code that you suspect might raise an exception inside the try block. If an exception occurs in this block, Python immediately stops executing the rest of the try block and jumps to the appropriate except block.
+- ```except block```: This block catches and handles specific types of exceptions.
+  - ```ExceptionType```: You specify the type of exception you want to catch (e.g., ZeroDivisionError, ValueError, TypeError, FileNotFoundError).
+  - If the type of exception raised in the try block matches ExceptionType, the code inside this except block is executed.
+ 
+```py
+try:
+    num1 = int(input("Enter a numerator: "))
+    num2 = int(input("Enter a denominator: "))
+    division_result = num1 / num2
+    print(f"Result of division: {division_result}")
+except ZeroDivisionError:
+    print("Error: Cannot divide by zero!")
+except ValueError:
+    print("Error: Invalid input. Please enter numbers only.")
+```
+
+**Additional Components for Robust Handling**:
+
+- **Catching multiple specific exceptions**: You can have multiple except blocks to handle different types of exceptions. Python will execute the first except block that matches the raised exception.
+
+```py
+try:
+    # Some code that might fail
+    value = int("abc") # ValueError
+    another_result = 10 / 0 # ZeroDivisionError
+except ValueError:
+    print("Caught a ValueError!")
+except ZeroDivisionError:
+    print("Caught a ZeroDivisionError!")
+except Exception as e: # Catch any other unexpected exception
+    print(f"An unexpected error occurred: {e}")
+```
+
+- **Catching the exception object (as e)**: You can optionally store the exception object itself in a variable (e.g., e) to access details about the error.
+
+```py
+try:
+    my_list = [1, 2]
+    print(my_list[5]) # IndexError
+except IndexError as e:
+    print(f"Error accessing list element: {e}")
+    print(f"Error type: {type(e)}")
+```
+
+- **Generic except (bare except)**: You can use except: without specifying an exception type to catch any exception. However, this is generally discouraged in production code because it can hide unexpected errors, making debugging difficult. It's better to catch specific exceptions or Exception as the base class for most common errors.
+
+```py
+try:
+    # risky code
+    pass
+except: # Catches ALL exceptions
+    print("Something went wrong!")
+```
+
+- ```else``` block (with try-except):
+  - An optional else block can be included after all except blocks. The code in the else block is executed only if no exception occurs in the try block.
+ 
+```py
+try:
+    file = open("myfile.txt", "r")
+except FileNotFoundError:
+    print("File not found.")
+else:
+    print("File opened successfully.")
+    file.close()
+```
+
+- ```finally``` block:
+  - An optional finally block is executed always, regardless of whether an exception occurred or not, and whether it was handled or not. It's typically used for cleanup operations (e.g., closing files, releasing resources).
+ 
+```py
+try:
+    # Code that might raise an error
+    file = open("my_data.txt", "r")
+    content = file.read()
+    print(content)
+except FileNotFoundError:
+    print("The file was not found.")
+finally:
+    # This code runs no matter what
+    print("Attempting to close the file if it was opened.")
+    if 'file' in locals() and not file.closed: # Check if file object exists and is open
+        file.close()
+        print("File closed.")
+```
+
 #### <a name="chapter4part10"></a>Chapter 4 - Part 10: What is the purpose of the try, except, finally block?
+
+The try, except, finally block is Python's primary mechanism for robust exception handling. Its purpose is to allow a program to gracefully manage errors that occur during execution, preventing crashes and ensuring essential cleanup operations are performed.
+
+Let's break down the purpose of each part:
+
+- ```try``` block:
+  - Purpose: To encapsulate the code that might potentially raise an exception.
+  - How it works: Python attempts to execute all statements within the try block.
+  - Outcome:
+    - If no exception occurs, the try block completes, and execution proceeds to the else block (if present), then to the finally block (if present).
+    - If an exception does occur, the rest of the try block is immediately skipped. Python then searches for a matching except block.
+   
+- ```except``` block(s):
+  - Variations:
+  - except ExceptionType:: Catches a specific type of exception.
+  - except ExceptionType as e:: Catches the exception and assigns the exception object to variable e for inspection.
+  - except:: Catches any exception (generally discouraged for broad error hiding).
+  - Multiple except blocks: Can handle different errors distinctly.
+ 
+- ```finally``` block:
+  - Purpose: To define cleanup actions that must be executed, regardless of whether an exception occurred in the try block, or whether it was caught by an except block, or even if the try block was exited by a return, break, or continue statement.
+  - How it works: The code inside the finally block is guaranteed to execute as the last step before the try...except...finally statement completes.
+  - Outcome: This block is crucial for releasing external resources like files, network connections, or database handles, ensuring they are properly closed even if an error disrupts normal execution.
+ 
+- Optional else block (with try-except):
+  - Purpose: To define code that should run only if no exception occurs in the try block.
+  - How it works: If the try block completes without raising any exceptions, the else block is executed immediately after the try block and before the finally block.
+  - Benefit: This helps keep the try block concise, containing only the code that might raise an exception. The code that depends on the try block's success can be put in the else block.
+ 
+**Example Illustrating All Parts:**
+
+```py
+file_name = "data.txt"
+file_object = None # Initialize to None
+
+try:
+    # 1. try block: Code that might cause an error
+    file_object = open(file_name, "r") # May raise FileNotFoundError
+    content = file_object.read()
+    print(f"File content: {content}")
+
+    # This line will only execute if the file was read successfully
+    # (and no other exception occurred before it)
+    processed_data = content.upper()
+    print(f"Processed data: {processed_data}")
+
+except FileNotFoundError:
+    # 2. except block: Handles a specific error (FileNotFoundError)
+    print(f"Error: The file '{file_name}' was not found.")
+except IOError as e:
+    # 2. except block: Handles other I/O errors
+    print(f"An I/O error occurred: {e}")
+except Exception as e:
+    # 2. except block: Catches any other unexpected errors
+    print(f"An unexpected error occurred: {e}")
+else:
+    # 3. else block: Executes ONLY if no exception occurred in the try block
+    print("No exceptions occurred in the try block.")
+finally:
+    # 4. finally block: ALWAYS executes, for cleanup
+    print("Executing finally block...")
+    if file_object: # Check if the file object was successfully created
+        file_object.close()
+        print("File closed.")
+```
+
+- Scenario 1: data.txt exists and readable
+  - try runs.
+  - else runs.
+  - finally runs.
+
+- Scenario 2: data.txt does not exist
+  - try raises FileNotFoundError.
+  - except FileNotFoundError runs.
+  - else is skipped.
+  - finally runs.
+
+- Scenario 3: data.txt exists but permission error (IOError)
+  - try raises IOError.
+  - except IOError runs.
+  - else is skipped.
+  - finally runs.
+
+The try, except, finally (and else) structure is fundamental for writing robust and reliable Python applications that can gracefully handle unexpected events.
 
 #### <a name="chapter4part11"></a>Chapter 4 - Part 11: How do you use the match statement introduced in Python 3.10?
 
+The match statement, introduced in Python 3.10, implements structural pattern matching. It's a powerful control flow statement that allows you to compare a value (the "subject") against several different "patterns" and execute code based on the first pattern that matches. It's Python's modern equivalent of a switch statement, but with much more advanced capabilities.
+
+```py
+match subject:
+    case pattern_1:
+        # Code if subject matches pattern_1
+    case pattern_2:
+        # Code if subject matches pattern_2
+    case pattern_3:
+        # Code if subject matches pattern_3
+    # ...
+    case _: # Optional: The wildcard pattern (like 'default')
+        # Code if no other pattern matches
+```
+
+- Subject: The expression or value you are trying to match.
+- Patterns: These are the core of match. They can be
+  - Literal Patterns: Match exact values (numbers, strings, True, False, None).
+
+```py
+status = 200
+match status:
+    case 200:
+        print("OK")
+    case 404:
+        print("Not Found")
+    case _:
+        print("Unknown")
+```
+
+  - Wildcard Pattern (_): Matches anything. Used as a catch-all or to ignore parts of a pattern.
+
+```py
+point = (10, 20)
+match point:
+    case (x, y): # Matches any two-element tuple
+        print(f"Point at ({x}, {y})")
+    case _:
+        print("Not a 2D point")
+```
+
+  - Sequence Patterns: Match lists or tuples. You can bind variables to elements.
+
+```py
+command = ["move", "east", 10]
+match command:
+    case ["move", direction, distance]: # Matches a 3-element sequence
+        print(f"Moving {direction} by {distance} units.")
+    case ["jump", height]:
+        print(f"Jumping {height} feet.")
+    case _:
+        print("Unknown command.")
+```
+
+You can also use * to capture remaining elements:
+
+```py
+data = [1, 2, 3, 4, 5]
+match data:
+    case [first, *rest, last]: # first=1, rest=[2,3,4], last=5
+        print(f"First: {first}, Rest: {rest}, Last: {last}")
+```
+
+  - Mapping Patterns: Match dictionaries. You can bind variables to values by key.
+
+```py
+user = {"name": "Alice", "age": 30}
+match user:
+    case {"name": n, "age": a}:
+        print(f"User {n} is {a} years old.")
+    case {"name": n}:
+        print(f"User {n} found (age unknown).")
+    case _:
+        print("Not a recognized user structure.")
+```
+
+  - Class Patterns: Match instances of classes and bind attributes.
+
+```py
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(1, 2)
+match p:
+    case Point(x=0, y=0):
+        print("Origin")
+    case Point(x=x, y=y): # Binds x and y attributes
+        print(f"Point at ({x}, {y})")
+```
+
+  - OR Patterns (|): Combine multiple patterns.
+
+```py
+value = "orange"
+match value:
+    case "apple" | "banana" | "cherry":
+        print("It's a common fruit.")
+    case "orange":
+        print("It's an orange.")
+```
+
+  - as keyword: Binds a sub-pattern to a variable.
+
+```py
+data = (1, [2, 3])
+match data:
+    case (x, [y, z] as inner_list):
+        print(f"x={x}, y={y}, z={z}, inner_list={inner_list}")
+```
+
+  - Guard Clauses (if): Add an if condition to a pattern. The pattern must match and the if condition must be true for the case to be selected.
+
+```py
+point = (5, 10)
+match point:
+    case (x, y) if x == y:
+        print(f"Diagonal point: ({x}, {y})")
+    case (x, y) if x > y:
+        print(f"X is greater: ({x}, {y})")
+    case _:
+        print("Other point.")
+```
+
+How it works (Execution Flow):
+
+- The subject expression is evaluated.
+- Python attempts to match the subject against each case pattern from top to bottom.
+- The first pattern that successfully matches (and whose if guard, if any, evaluates to True) has its associated code block executed.
+- After the code block runs, the entire match statement is exited (no fall-through).
+- If no patterns match, and a wildcard _ case is present, its code block is executed. If no _ case is present and no other pattern matches, nothing happens, and execution continues after the match block.
+
+**Benefits**:
+
+- **Readability**: Can make complex conditional logic much clearer than nested if-elif-else chains.
+- **Conciseness**: Reduces boilerplate code.
+- **Expressiveness**: Allows for sophisticated structural decomposition and value extraction.
+- **Error Prevention**: Forces you to think about all possible structures, potentially leading to more robust code.
+
+The match statement is a significant addition to Python's control flow, particularly useful for parsing structured data (like messages, configuration, or ASTs) and implementing state machines.
+
 #### <a name="chapter4part12"></a>Chapter 4 - Part 12:  What are context-sensitive statements in Python?
+
+The term "context-sensitive statements" in Python primarily refers to the with statement. While not the only mechanism that uses context, the with statement is the most prominent and common example of how Python handles context.
+
+**The with Statement and Context Managers:**
+
+The with statement is used to ensure that certain operations are properly "set up" and "torn down" (cleaned up) around a block of code, typically resource management. It guarantees that specific actions are taken upon entering and exiting the block, regardless of whether an error occurs or not.
+
+This behavior is enabled by objects called context managers. A context manager is an object that defines two special methods:
+
+- ```__enter__(self)```: This method is called when the with statement is entered. It sets up the context (e.g., opens a file, acquires a lock). It can optionally return a value, which is then bound to the variable specified after as in the with statement (e.g., f in with open(...) as f:).
+- ```__exit__(self, exc_type, exc_val, exc_tb)```: This method is called when the with statement is exited. It's responsible for tearing down the context (e.g., closing the file, releasing the lock). It gets arguments related to any exception that occurred within the with block. If it returns True, it indicates that the exception was handled and should not be re-raised.
+
+```py
+with expression_that_returns_a_context_manager as variable_name:
+    # Code to execute within the context
+    # This code uses 'variable_name' (if provided by __enter__)
+```
+
+Common Examples of Context-Sensitive Statements using with:
+
+- File Handling: This is the most common use case. It ensures files are automatically closed, even if errors occur during reading or writing.
+
+```py
+# Without 'with' (less safe):
+# f = open("my_file.txt", "w")
+# try:
+#     f.write("Hello")
+# except:
+#     print("Error writing")
+# finally:
+#     f.close() # You must remember to close it
+
+# With 'with' (Pythonic and safe):
+with open("my_file.txt", "w") as f:
+    f.write("Hello, world!\n")
+    f.write("This line is also written.")
+print("File operations complete. File is automatically closed.")
+# The file 'f' is guaranteed to be closed here, even if f.write() failed.
+```
+
+- Locking (Concurrency): Ensures that a lock is acquired before a critical section and released afterwards, preventing race conditions.
+
+```py
+import threading
+
+lock = threading.Lock()
+
+def access_shared_resource():
+    with lock: # Acquire the lock upon entering the block
+        # This code is a critical section, only one thread can be here at a time
+        print(f"{threading.current_thread().name} acquired lock.")
+        # Simulate some work
+        import time
+        time.sleep(0.1)
+        print(f"{threading.current_thread().name} released lock.")
+    # Lock is automatically released upon exiting the 'with' block, even if an error occurs.
+
+# Example usage:
+# thread1 = threading.Thread(target=access_shared_resource, name="Thread-1")
+# thread2 = threading.Thread(target=access_shared_resource, name="Thread-2")
+# thread1.start()
+# thread2.start()
+```
+
+- Database Connections: Ensures that database connections are properly closed after operations.
+
+```py
+# Hypothetical example for a database connection
+# from some_db_library import Connection
+
+# with Connection("my_database") as conn:
+#     cursor = conn.cursor()
+#     cursor.execute("SELECT * FROM users")
+#     results = cursor.fetchall()
+#     print(results)
+# The connection is automatically closed here
+```
+
+**Why are they "context-sensitive"?**
+
+Because their behavior (the setup and teardown actions) depends on the context they are establishing and exiting. The __enter__ and __exit__ methods define how the resource behaves specifically within that with block.
+
+The with statement, powered by context managers, promotes cleaner, safer, and more robust code by automating resource management, preventing resource leaks, and handling exceptions gracefully during setup and teardown phases.
 
 ## <a name="chapter5"></a>Chapter 5: Data Structures
 
