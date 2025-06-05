@@ -214,190 +214,165 @@
     - [Chapter 16 - Part 8: What are mock objects in testing?](#chapter16part8)
     - [Chapter 16 - Part 9: How do you test asynchronous code in Python?](#chapter16part9)
     - [Chapter 16 - Part 10: What are some best practices for writing tests in Python?](#chapter16part10)
-3. [Chapter 3: ](#chapter3)
-    - [Chapter 1 - Part 1: ](#chapter3part1)
-    - [Chapter 1 - Part 2: ](#chapter2part2)
-    - [Chapter 1 - Part 3: ](#chapter2part3)
-    - [Chapter 1 - Part 4: ](#chapter2part4)
-    - [Chapter 1 - Part 5: ](#chapter2part5)
-    - [Chapter 1 - Part 6: ](#chapter2part6)
-    - [Chapter 1 - Part 7: ](#chapter2part7)
-    - [Chapter 1 - Part 8: ](#chapter2part8)
-    - [Chapter 1 - Part 9: ](#chapter2part9)
-    - [Chapter 1 - Part 10: ](#chapter2part10)
-    - [Chapter 1 - Part 11: ](#chapter2part11)
-    - [Chapter 1 - Part 12: ](#chapter2part12)
-    - [Chapter 1 - Part 13: ](#chapter2part13)
-    - [Chapter 1 - Part 14: ](#chapter2part14)
-    - [Chapter 1 - Part 15: ](#chapter2part15)
-    - [Chapter 1 - Part 16: ](#chapter2part16)
-    - [Chapter 1 - Part 17: ](#chapter2part17)
-    - [Chapter 1 - Part 18: ](#chapter2part18)
-    - [Chapter 1 - Part 19: ](#chapter2part19)
-    - [Chapter 1 - Part 20: ](#chapter2part20)
-
-
-Miscellaneous
-101. What is the Global Interpreter Lock (GIL)?
-102. How do you optimize Python code for performance?
-103. What is the purpose of the pickle module?
-104. How do you serialize and deserialize objects in Python?
-105. What are decorators in Python?
-106. How do you create a simple web server using Python?
-107. What is the purpose of the json module?
-108. How do you convert a Python object to JSON?
-109. How do you parse JSON data in Python?
-110. What is the purpose of the collections module?
-161. What is the use of functools in Python?
-162. How do you memoize a function?
-163. What are context managers?
-164. How do you implement a context manager using a class?
-165. What is the itertools module?
-271. How do you create a queue using collections.deque?
-272. What are the differences between set() and frozenset()?
-273. How do you format numbers in Python?
-274. What are namedtuples?
-275. How do you create a custom iterator?
-129. How do you handle command-line arguments in Python?
-130. What are the differences between Python 2 and Python 3?
-Performance and Optimization
-136. How can you measure the performance of a Python script?
-137. What is the purpose of the timeit module?
-138. How do you optimize memory usage in Python?
-139. What are some common performance pitfalls in Python?
-140. How do you use caching in Python?
-186. How do you optimize database queries in Python?
-187. What is profiling, and how can you profile a Python application?
-188. How do you use cProfile for performance analysis?
-189. What are some ways to reduce memory usage in Python?
-190. How do you use generators to improve performance?
-Concurrency
-146. What is multithreading in Python?
-147. How do you create a thread in Python?
-148. What is multiprocessing in Python?
-149. How do you use the threading module?
-150. What is the difference between threads and processes?
-Networking
-151. What is a socket in Python?
-152. How do you create a TCP server in Python?
-153. How do you create a TCP client in Python?
-154. What is the purpose of the socket module?
-155. How do you handle multiple clients in a server?
-Web Development
-156. How do you create a web application using Flask?
-157. What are RESTful APIs?
-158. How do you handle HTTP requests in Flask?
-159. What is Django?
-160. How do you create a model in Django?
-Debugging
-166. How do you use the pdb module for debugging?
-167. What are some common debugging techniques in Python?
-168. How do you log messages in Python?
-169. What is the purpose of the logging module?
-170. How do you set up logging in a Python application?
-Development Practices
-171. What is PEP 8?
-172. Why is code style important?
-173. How do you perform code reviews in Python?
-174. What are type hints in Python?
-175. How do you use m
-176. How do you use mypy for type checking?
-177. What is the purpose of virtual environments?
-178. How do you create a virtual environment using venv?
-179. What is dependency management in Python?
-180. How do you use pip to install packages?
-Security
-181. What are some common security vulnerabilities in Python applications?
-182. How do you protect against SQL injection in Python?
-183. What is XSS (Cross-Site Scripting)?
-184. How can you secure sensitive information in your Python application?
-185. What are best practices for password hashing in Python?
-Asynchronous Programming
-191. What is asynchronous programming?
-192. How do you create an asynchronous function in Python?
-193. What is the purpose of the asyncio module?
-194. How do you handle exceptions in asynchronous code?
-195. What are tasks and futures in Python?
-Working with APIs
-196. What is an API?
-197. How do you make a POST request using requests?
-198. How do you handle JSON data in API responses?
-199. What is the purpose of API authentication?
-200. How do you implement OAuth in Python?
-Web Frameworks
-201. What are some advantages of using Django?
-202. How do you create a view in Django?
-203. What is URL routing in Flask?
-204. How do you use templates in Flask?
-205. What is Django's ORM?
-System Design
-216. How do you design a RESTful API?
-217. What is microservices architecture?
-218. How do you handle versioning in APIs?
-219. What is the role of API gateways?
-220. How do you design for scalability in web applications?
-Scripting and Automation
-226. How do you create a command-line interface (CLI) in Python?
-227. What are some common use cases for Python scripting?
-228. How do you automate tasks using Python?
-229. What is web scraping, and how do you do it with Python?
-230. How do you use the argparse module?
-Data Science and Machine Learning
-231. What is the difference between supervised and unsupervised learning?
-232. How do you preprocess data for machine learning in Python?
-233. What are some popular libraries for machine learning in Python?
-234. How do you implement a linear regression model in Python?
-235. What is cross-validation in machine learning?
-Networking Protocols
-236. What are HTTP methods?
-237. What is the difference between GET and POST requests?
-238. What is REST?
-239. How do you handle sessions in web applications?
-240. What is WebSocket, and how is it used in Python?
-Deployment and DevOps
-241. How do you deploy a Python application to a server?
-242. What is Docker, and how do you use it with Python?
-243. What are container orchestration tools?
-244. How do you set up continuous integration/continuous deployment (CI/CD) for Python applications?
-245. What is the purpose of a requirements.txt file?
-Cloud Computing
-246. How do you use AWS services with Python?
-247. What is the purpose of AWS Lambda?
-248. How do you interact with AWS S3 in Python?
-249. What is Azure Functions?
-250. How do you manage cloud resources using Python?
-Algorithm
-261. How do you implement a binary search algorithm?
-262. What is the time complexity of quicksort?
-263. How do you find the maximum value in a list?
-264. How do you check if a string is a palindrome?
-Common Python Idioms
-266. What is the Pythonic way to swap two variables?
-267. How do you check for the existence of an element in a list?
-268. What is the purpose of the any() and all() functions?
-269. How do you create a dictionary from two lists?
-270. What is the use of the join() method for strings?
-Functional Programming
-286. What is functional programming?
-287. How do you use higher-order functions in Python?
-288. What are pure functions?
-289. How do you use the functools module?
-290. What are closures in Python?
-Continuous Learning
-291. How do you keep your Python skills updated?
-292. What resources do you recommend for learning advanced Python topics?
-293. How do you contribute to open-source Python projects?
-294. What are some common mistakes new Python developers make?
-295. How do you approach learning a new Python library or framework?
-Coding Challenges
-296. Write a function to find the factorial of a number.
-297. Implement a function to check for an anagram.
-298. Write a function to calculate the Fibonacci series.
-299. Implement a function to flatten a nested list.
-300. Write a function to count the occurrences of each character in a string.
-Final Set of Questions
-306. How do you implement a simple web scraper?
-307. What are some libraries used for web scraping?
-308. How do you handle pagination in web scraping?
-309. What are the ethical considerations of web scraping?
-310. How do you parse HTML using BeautifulSoup?
+17. [Chapter 17: Miscellaneous](#chapter17)
+    - [Chapter 17 - Part 1: What is the Global Interpreter Lock (GIL)?](#chapter17part1)
+    - [Chapter 17 - Part 2: How do you optimize Python code for performance?](#chapter17part2)
+    - [Chapter 17 - Part 3: What is the purpose of the pickle module?](#chapter17part3)
+    - [Chapter 17 - Part 4: How do you serialize and deserialize objects in Python?](#chapter17part4)
+    - [Chapter 17 - Part 5: What are decorators in Python?](#chapter17part5)
+    - [Chapter 17 - Part 6: How do you create a simple web server using Python?](#chapter17part6)
+    - [Chapter 17 - Part 7: What is the purpose of the json module?](#chapter17part7)
+    - [Chapter 17 - Part 8: How do you convert a Python object to JSON?](#chapter17part8)
+    - [Chapter 17 - Part 9: How do you parse JSON data in Python?](#chapter17part9)
+    - [Chapter 17 - Part 10: What is the purpose of the collections module?](#chapter17part10)
+    - [Chapter 17 - Part 11: What is the use of functools in Python?](#chapter17part11)
+    - [Chapter 17 - Part 12: How do you memoize a function?](#chapter17part12)
+    - [Chapter 17 - Part 13: What are context managers?](#chapter17part13)
+    - [Chapter 17 - Part 14: How do you implement a context manager using a class?](#chapter17part14)
+    - [Chapter 17 - Part 15: What is the itertools module?](#chapter17part15)
+    - [Chapter 17 - Part 16: How do you create a queue using collections.deque?](#chapter17part16)
+    - [Chapter 17 - Part 17: What are the differences between set() and frozenset()?](#chapter17part17)
+    - [Chapter 17 - Part 18: How do you format numbers in Python?](#chapter17part18)
+    - [Chapter 17 - Part 19: What are namedtuples?](#chapter17part19)
+    - [Chapter 17 - Part 20: How do you create a custom iterator?](#chapter17part20)
+    - [Chapter 17 - Part 21: How do you handle command-line arguments in Python?](#chapter17part21)
+    - [Chapter 17 - Part 22: What are the differences between Python 2 and Python 3?](#chapter17part22)
+18. [Chapter 18: Performance and Optimization](#chapter18)
+    - [Chapter 18 - Part 1: How can you measure the performance of a Python script?](#chapter18part1)
+    - [Chapter 18 - Part 2: What is the purpose of the timeit module?](#chapter18part2)
+    - [Chapter 18 - Part 3: How do you optimize memory usage in Python?](#chapter18part3)
+    - [Chapter 18 - Part 4: What are some common performance pitfalls in Python?](#chapter18part4)
+    - [Chapter 18 - Part 5: How do you use caching in Python?](#chapter18part5)
+    - [Chapter 18 - Part 6: How do you optimize database queries in Python?](#chapter18part6)
+    - [Chapter 18 - Part 7: What is profiling, and how can you profile a Python application?](#chapter18part7)
+    - [Chapter 18 - Part 8: How do you use cProfile for performance analysis?](#chapter18part8)
+    - [Chapter 18 - Part 9: What are some ways to reduce memory usage in Python?](#chapter18part9)
+    - [Chapter 18 - Part 10: How do you use generators to improve performance?](#chapter18part10)
+19. [Chapter 19: Concurrency](#chapter19)
+    - [Chapter 19 - Part 1: What is multithreading in Python?](#chapter19part1)
+    - [Chapter 19 - Part 2: How do you create a thread in Python?](#chapter19part2)
+    - [Chapter 19 - Part 3: What is multiprocessing in Python?](#chapter19part3)
+    - [Chapter 19 - Part 4: How do you use the threading module?](#chapter19part4)
+    - [Chapter 19 - Part 5: What is the difference between threads and processes?](#chapter19part5)
+20. [Chapter 20: Networking](#chapter20)
+    - [Chapter 20 - Part 1: What is a socket in Python?](#chapter20part1)
+    - [Chapter 20 - Part 2: How do you create a TCP server in Python?](#chapter20part2)
+    - [Chapter 20 - Part 3: How do you create a TCP client in Python?](#chapter20part3)
+    - [Chapter 20 - Part 4: What is the purpose of the socket module?](#chapter20part4)
+    - [Chapter 20 - Part 5: How do you handle multiple clients in a server?](#chapter20part5)
+21. [Chapter 21: Web Development](#chapter21)
+    - [Chapter 21 - Part 1: How do you create a web application using Flask?](#chapter21part1)
+    - [Chapter 21 - Part 2: What are RESTful APIs?](#chapter21part2)
+    - [Chapter 21 - Part 3: How do you handle HTTP requests in Flask?](#chapter21part3)
+    - [Chapter 21 - Part 4: What is Django?](#chapter21part4)
+    - [Chapter 21 - Part 5: How do you create a model in Django?](#chapter21part5)
+22. [Chapter 22: Debugging](#chapter22)
+    - [Chapter 22 - Part 1: How do you use the pdb module for debugging?](#chapter22part1)
+    - [Chapter 22 - Part 2: What are some common debugging techniques in Python?](#chapter22part2)
+    - [Chapter 22 - Part 3: How do you log messages in Python?](#chapter22part3)
+    - [Chapter 22 - Part 4: What is the purpose of the logging module?](#chapter22part4)
+    - [Chapter 22 - Part 5: How do you set up logging in a Python application?](#chapter22part5)
+23. [Chapter 23: Development Practices](#chapter23)
+    - [Chapter 23 - Part 1: What is PEP 8?](#chapter23part1)
+    - [Chapter 23 - Part 2: Why is code style important?](#chapter23part2)
+    - [Chapter 23 - Part 3: How do you perform code reviews in Python?](#chapter23part3)
+    - [Chapter 23 - Part 4: What are type hints in Python?](#chapter23part4)
+    - [Chapter 23 - Part 5: How do you use m](#chapter23part5)
+    - [Chapter 23 - Part 6: How do you use mypy for type checking?](#chapter23part6)
+    - [Chapter 23 - Part 7: What is the purpose of virtual environments?](#chapter23part7)
+    - [Chapter 23 - Part 8: How do you create a virtual environment using venv?](#chapter23part8)
+    - [Chapter 23 - Part 9: What is dependency management in Python?](#chapter23part9)
+    - [Chapter 23 - Part 10: How do you use pip to install packages?](#chapter23part10)
+24. [Chapter 24: Security](#chapter24)
+    - [Chapter 24 - Part 1: What are some common security vulnerabilities in Python applications?](#chapter24part1)
+    - [Chapter 24 - Part 2: How do you protect against SQL injection in Python?](#chapter24part2)
+    - [Chapter 24 - Part 3: What is XSS (Cross-Site Scripting)?](#chapter24part3)
+    - [Chapter 24 - Part 4: How can you secure sensitive information in your Python application?](#chapter24part4)
+    - [Chapter 24 - Part 5: What are best practices for password hashing in Python?](#chapter24part5)
+25. [Chapter 25: Asynchronous Programming](#chapter25)
+    - [Chapter 25 - Part 1: What is asynchronous programming?](#chapter25part1)
+    - [Chapter 25 - Part 2: How do you create an asynchronous function in Python?](#chapter25part2)
+    - [Chapter 25 - Part 3: What is the purpose of the asyncio module?](#chapter25part3)
+    - [Chapter 25 - Part 4: How do you handle exceptions in asynchronous code?](#chapter25part4)
+    - [Chapter 25 - Part 5: What are tasks and futures in Python?](#chapter25part5)
+26. [Chapter 26: Working with APIs](#chapter26)
+    - [Chapter 26 - Part 1: What is an API?](#chapter26part1)
+    - [Chapter 26 - Part 2: How do you make a POST request using requests?](#chapter26part2)
+    - [Chapter 26 - Part 3: How do you handle JSON data in API responses?](#chapter26part3)
+    - [Chapter 26 - Part 4: What is the purpose of API authentication?](#chapter26part4)
+    - [Chapter 26 - Part 5: How do you implement OAuth in Python?](#chapter26part5)
+27. [Chapter 27: Web Frameworks](#chapter27)
+    - [Chapter 27 - Part 1: What are some advantages of using Django?](#chapter27part1)
+    - [Chapter 27 - Part 2: How do you create a view in Django?](#chapter27part2)
+    - [Chapter 27 - Part 3: What is URL routing in Flask?](#chapter27part3)
+    - [Chapter 27 - Part 4: How do you use templates in Flask?](#chapter27part4)
+    - [Chapter 27 - Part 5: What is Django's ORM?](#chapter27part5)
+28. [Chapter 28: System Design](#chapter28)
+    - [Chapter 28 - Part 1: How do you design a RESTful API?](#chapter28part1)
+    - [Chapter 28 - Part 2: What is microservices architecture?](#chapter28part2)
+    - [Chapter 28 - Part 3: How do you handle versioning in APIs?](#chapter28part3)
+    - [Chapter 28 - Part 4: What is the role of API gateways?](#chapter28part4)
+    - [Chapter 28 - Part 5: How do you design for scalability in web applications?](#chapter28part5)
+29. [Chapter 29: Scripting and Automation](#chapter29)
+    - [Chapter 29 - Part 1: How do you create a command-line interface (CLI) in Python?](#chapter29part1)
+    - [Chapter 29 - Part 2: What are some common use cases for Python scripting?](#chapter29part2)
+    - [Chapter 29 - Part 3: How do you automate tasks using Python?](#chapter29part3)
+    - [Chapter 29 - Part 4: What is web scraping, and how do you do it with Python?](#chapter29part4)
+    - [Chapter 29 - Part 5: How do you use the argparse module?](#chapter29part5)
+30. [Chapter 30: Data Science and Machine Learning](#chapter30)
+    - [Chapter 30 - Part 1: What is the difference between supervised and unsupervised learning?](#chapter30part1)
+    - [Chapter 30 - Part 2: How do you preprocess data for machine learning in Python?](#chapter30part2)
+    - [Chapter 30 - Part 3: What are some popular libraries for machine learning in Python?](#chapter30part3)
+    - [Chapter 30 - Part 4: How do you implement a linear regression model in Python?](#chapter30part4)
+    - [Chapter 30 - Part 5: What is cross-validation in machine learning?](#chapter30part5)
+31. [Chapter 31: Networking Protocols](#chapter31)
+    - [Chapter 31 - Part 1: What are HTTP methods?](#chapter31part1)
+    - [Chapter 31 - Part 2: What is the difference between GET and POST requests?](#chapter31part2)
+    - [Chapter 31 - Part 3: What is REST?](#chapter31part3)
+    - [Chapter 31 - Part 4: How do you handle sessions in web applications?](#chapter31part4)
+    - [Chapter 31 - Part 5: What is WebSocket, and how is it used in Python?](#chapter31part5)
+32. [Chapter 32: Deployment and DevOps](#chapter32)
+    - [Chapter 32 - Part 1: How do you deploy a Python application to a server?](#chapter32part1)
+    - [Chapter 32 - Part 2: What is Docker, and how do you use it with Python?](#chapter32part2)
+    - [Chapter 32 - Part 3: What are container orchestration tools?](#chapter32part3)
+    - [Chapter 32 - Part 4: How do you set up continuous integration/continuous deployment (CI/CD) for Python applications?](#chapter32part4)
+    - [Chapter 32 - Part 5: What is the purpose of a requirements.txt file?](#chapter32part5)
+33. [Chapter 33: Cloud Computing](#chapter33)
+    - [Chapter 33 - Part 1: How do you use AWS services with Python?](#chapter33part1)
+    - [Chapter 33 - Part 2: What is the purpose of AWS Lambda?](#chapter33part2)
+    - [Chapter 33 - Part 3: How do you interact with AWS S3 in Python?](#chapter33part3)
+    - [Chapter 33 - Part 4: What is Azure Functions?](#chapter33part4)
+    - [Chapter 33 - Part 5: How do you manage cloud resources using Python?](#chapter33part5)
+34. [Chapter 34: Algorithm](#chapter34)
+    - [Chapter 34 - Part 1: How do you implement a binary search algorithm?](#chapter34part1)
+    - [Chapter 34 - Part 2: What is the time complexity of quicksort?](#chapter34part2)
+    - [Chapter 34 - Part 3: How do you find the maximum value in a list?](#chapter34part3)
+    - [Chapter 34 - Part 4: How do you check if a string is a palindrome?](#chapter34part4)
+35. [Chapter 35: Common Python Idioms](#chapter35)
+    - [Chapter 35 - Part 1: What is the Pythonic way to swap two variables?](#chapter35part1)
+    - [Chapter 35 - Part 2: How do you check for the existence of an element in a list?](#chapter35part2)
+    - [Chapter 35 - Part 3: What is the purpose of the any() and all() functions?](#chapter35part3)
+    - [Chapter 35 - Part 4: How do you create a dictionary from two lists?](#chapter35part4)
+    - [Chapter 35 - Part 5: What is the use of the join() method for strings?](#chapter35part5)
+36. [Chapter 36: Functional Programming](#chapter36)
+    - [Chapter 36 - Part 1: What is functional programming?](#chapter36part1)
+    - [Chapter 36 - Part 2: How do you use higher-order functions in Python?](#chapter36part2)
+    - [Chapter 36 - Part 3: What are pure functions?](#chapter36part3)
+    - [Chapter 36 - Part 4: How do you use the functools module?](#chapter36part4)
+    - [Chapter 36 - Part 5: What are closures in Python?](#chapter36part5)
+37. [Chapter 37: Continuous Learning](#chapter37)
+    - [Chapter 37 - Part 1: How do you keep your Python skills updated?](#chapter37part1)
+    - [Chapter 37 - Part 2: What resources do you recommend for learning advanced Python topics?](#chapter37part2)
+    - [Chapter 37 - Part 3: How do you contribute to open-source Python projects?](#chapter37part3)
+    - [Chapter 37 - Part 4: What are some common mistakes new Python developers make?](#chapter37part4)
+    - [Chapter 37 - Part 5: How do you approach learning a new Python library or framework?](#chapter37part5)
+38. [Chapter 38: Coding Challenges](#chapter38)
+    - [Chapter 38 - Part 1: Write a function to find the factorial of a number.](#chapter38part1)
+    - [Chapter 38 - Part 2: Implement a function to check for an anagram.](#chapter38part2)
+    - [Chapter 38 - Part 3: Write a function to calculate the Fibonacci series.](#chapter38part3)
+    - [Chapter 38 - Part 4: Implement a function to flatten a nested list.](#chapter38part4)
+    - [Chapter 38 - Part 5: Write a function to count the occurrences of each character in a string.](#chapter38part5)
+39. [Chapter 39: Final Set of Questions](#chapter39)
+    - [Chapter 39 - Part 1: How do you implement a simple web scraper?](#chapter39part1)
+    - [Chapter 39 - Part 2: What are some libraries used for web scraping?](#chapter39part2)
+    - [Chapter 39 - Part 3: How do you handle pagination in web scraping?](#chapter39part3)
