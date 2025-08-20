@@ -3326,29 +3326,596 @@ print(list(over_25_filter))
 
 #### <a name="chapter5part21"></a>Chapter 5 - Part 21: What is the reduce() function?
 
+The reduce() function applies a function of two arguments cumulatively to the items of an iterable, from left to right, to reduce the iterable to a single value. It is part of the functools module, so you need to import it.
+
+**Syntax: functools.reduce(function, iterable[, initializer])**
+
+- function: The function to apply to the elements. It must take two arguments.
+
+- iterable: The sequence of items to process.
+
+- initializer (optional): An initial value to start the reduction.
+
+Example:
+
+To sum a list of numbers
+
+```py
+from functools import reduce
+numbers = [1, 2, 3, 4]
+
+# Without initializer: reduce(lambda x, y: x + y, [1, 2, 3, 4]) -> (1+2)+3)+4) = 10
+sum_of_numbers = reduce(lambda x, y: x + y, numbers)
+print(sum_of_numbers) # Output: 10
+```
+
+reduce() is often considered less "Pythonic" than a simple for loop or the built-in sum() function for a task like summation. It is best used for complex, non-trivial reductions.
+
 #### <a name="chapter5part22"></a>Chapter 5 - Part 22: How do you flatten a nested list?
+
+Flattening a nested list means converting a list of lists into a single, one-dimensional list. There are several ways to do this:
+
+- **Using Nested List Comprehension (most common)**: This is a concise and readable way for simple flattening.
+
+```py
+nested_list = [[1, 2], [3, 4, 5], [6]]
+flattened_list = [item for sublist in nested_list for item in sublist]
+print(flattened_list) # Output: [1, 2, 3, 4, 5, 6]
+```
+
+- **Using the itertools.chain() function**: This is very memory-efficient for large lists as it returns an iterator instead of creating a new list in memory.
+
+```py
+import itertools
+nested_list = [[1, 2], [3, 4, 5], [6]]
+flattened_list = list(itertools.chain.from_iterable(nested_list))
+print(flattened_list) # Output: [1, 2, 3, 4, 5, 6]
+```
+
+- **Using a for loop**: A more explicit but less concise method.
+
+```py
+nested_list = [[1, 2], [3, 4], [5, 6]]
+flattened_list = []
+for sublist in nested_list:
+    for item in sublist:
+        flattened_list.append(item)
+print(flattened_list) # Output: [1, 2, 3, 4, 5, 6]
+```
 
 #### <a name="chapter5part23"></a>Chapter 5 - Part 23: What are the different ways to sort a list in Python?
 
+There are two primary ways to sort a list in Python:
+
+- list.sort() method: This is a method of the list object that sorts the list in-place. It modifies the original list and does not return a new list. It returns None.
+
+```py
+my_list = [3, 1, 4, 1, 5, 9, 2]
+my_list.sort() # Sorts the list in-place
+print(my_list) # Output: [1, 1, 2, 3, 4, 5, 9]
+```
+
+You can also pass reverse=True to sort in descending order.
+
+- sorted() built-in function: This is a global function that takes any iterable as an argument (e.g., list, tuple, string) and returns a new sorted list. The original iterable remains unchanged.
+
+```py
+my_list = [3, 1, 4, 1, 5, 9, 2]
+new_sorted_list = sorted(my_list)
+print(new_sorted_list) # Output: [1, 1, 2, 3, 4, 5, 9]
+print(my_list)        # Original list is unchanged: [3, 1, 4, 1, 5, 9, 2]
+```
+
+This function also accepts the reverse and key arguments for customized sorting.
+
+For simple sorting tasks, both methods work, but the choice depends on whether you need to modify the original list or create a new one.
+
 #### <a name="chapter5part24"></a>Chapter 5 - Part 24: How do you remove duplicates from a list?
+
+The most efficient and Pythonic way to remove duplicates from a list is to convert it to a set and then back to a list.
+
+- **Method 1: Using set (best for preserving uniqueness)**
+
+This method automatically handles duplicates by leveraging the set data type's inherent uniqueness.
+
+```py
+original_list = [1, 2, 2, 3, 4, 4, 5]
+unique_list = list(set(original_list))
+print(unique_list) # Output: [1, 2, 3, 4, 5] (Note: order is not guaranteed with this method)
+```
+
+If you need to preserve the original order of the unique elements, you can use a dictionary in Python 3.7+ which maintains insertion order.
+
+- **Method 2: Using a Dictionary (best for preserving order)**
+
+In Python 3.7+, a dictionary's keys maintain insertion order. You can use this to get unique elements while keeping their original order.
+
+```py
+original_list = [1, 2, 2, 3, 4, 4, 5, 1]
+unique_list = list(dict.fromkeys(original_list))
+print(unique_list) # Output: [1, 2, 3, 4, 5]
+```
+
+- **Method 3: Using a loop and a new list (less efficient but explicit)**
+
+This method involves iterating through the original list and appending each element to a new list only if it's not already present.
+
+```py
+original_list = [1, 2, 2, 3, 4, 4, 5]
+unique_list = []
+for item in original_list:
+    if item not in unique_list:
+        unique_list.append(item)
+print(unique_list) # Output: [1, 2, 3, 4, 5]
+```
 
 #### <a name="chapter5part25"></a>Chapter 5 - Part 25: What is the difference between list.sort() and sorted()?
 
+|Feature	|list.sort()	|sorted()|
+| :--: | :--: | :--: |
+|Type |	A method of the list object (list.sort()). |	A built-in function (sorted()). |
+|In-place |	Yes. It sorts the original list directly and modifies it. |	No. It returns a new sorted list. The original iterable is unchanged. |
+|Return Value |	Returns None. |	Returns the new sorted list object. |
+|Applicability |	Can only be used on list objects. |	Can be used on any iterable (lists, tuples, strings, dictionaries, etc.). |
+
+```py
+# `list.sort()` (in-place modification)
+my_list = [3, 1, 4]
+my_list.sort()
+print(my_list) # [1, 3, 4]
+print(my_list.sort()) # None
+
+# `sorted()` (returns a new list)
+my_tuple = (5, 2, 8)
+new_list = sorted(my_tuple)
+print(new_list) # [2, 5, 8]
+print(my_tuple) # (5, 2, 8) - original tuple is unchanged
+```
+
 #### <a name="chapter5part26"></a>Chapter 5 - Part 26: What is a deque in Python?
+
+A deque (pronounced "deck") stands for "double-ended queue". It is a class in the collections module that provides an efficient way to add and remove elements from both ends of a sequence.
+
+Unlike a standard list, which can be inefficient for operations at the beginning (e.g., list.insert(0, ...)) because it requires shifting all subsequent elements, a deque is optimized for these tasks.
+
+**Key features:**
+
+- Fast Appends and Pops: It has O(1) complexity for appending and popping from both the left and right ends.
+
+- Thread-safe: deques are thread-safe for appends and pops.
+
+- Created using collections.deque():
+
+**Example:**
+
+```py
+from collections import deque
+
+my_deque = deque(['a', 'b', 'c'])
+my_deque.append('d')      # Add to the right
+my_deque.appendleft('z')  # Add to the left
+print(my_deque) # Output: deque(['z', 'a', 'b', 'c', 'd'])
+
+my_deque.pop()        # Remove from the right
+my_deque.popleft()    # Remove from the left
+print(my_deque) # Output: deque(['a', 'b', 'c'])
+```
+
+deques are an excellent choice for implementing queues, stacks, or any scenario that requires fast additions and removals from both ends.
 
 #### <a name="chapter5part27"></a>Chapter 5 - Part 27: How do you implement a stack using a list?
 
+A stack is a data structure that follows the LIFO (Last-In, First-Out) principle. This means the last item added is the first one to be removed. You can easily implement a stack in Python using a simple list.
+
+- Push (add to the stack): Use the list.append() method. This adds an element to the end of the list, which acts as the "top" of the stack.
+
+- Pop (remove from the stack): Use the list.pop() method without any arguments. This removes and returns the last element from the list.
+
+- Peek (view the top element): Access the last element using slicing [-1].
+
+Example:
+
+```py
+# Create an empty list to act as a stack
+my_stack = []
+
+# Push elements onto the stack
+my_stack.append('A') # my_stack is now ['A']
+my_stack.append('B') # my_stack is now ['A', 'B']
+my_stack.append('C') # my_stack is now ['A', 'B', 'C']
+
+print(f"Stack after pushes: {my_stack}")
+
+# Peek at the top element
+print(f"Top element is: {my_stack[-1]}") # Output: C
+
+# Pop elements from the stack
+item = my_stack.pop() # Removes 'C'
+print(f"Popped item: {item}") # Output: C
+print(f"Stack after pop: {my_stack}") # Output: ['A', 'B']
+
+my_stack.pop()
+my_stack.pop()
+
+# Popping from an empty list raises an IndexError
+# my_stack.pop() # Raises IndexError
+```
+
 #### <a name="chapter5part28"></a>Chapter 5 - Part 28: How do you implement a queue using a list?
+
+A queue is a data structure that follows the FIFO (First-In, First-Out) principle. The first item added is the first one to be removed.
+
+While you can technically implement a queue with a list, it's highly inefficient for a large number of items. This is because removing an element from the beginning of a list (list.pop(0)) requires shifting all other elements, which has a time complexity of O(n).
+
+For a proper, efficient queue implementation, you should use the collections.deque class (see previous question).
+
+**Implementing with a list (for demonstration, not for production):**
+
+- Enqueue (add to the queue): Use list.append() to add an element to the end of the list.
+
+- Dequeue (remove from the queue): Use list.pop(0) to remove the first element.
+
+**Example (inefficient list implementation):**
+
+```py
+# Create an empty list to act as a queue
+my_queue = []
+
+# Enqueue elements
+my_queue.append('Job 1') # my_queue is now ['Job 1']
+my_queue.append('Job 2') # my_queue is now ['Job 1', 'Job 2']
+my_queue.append('Job 3') # my_queue is now ['Job 1', 'Job 2', 'Job 3']
+
+print(f"Queue after enqueuing: {my_queue}")
+
+# Dequeue elements
+job = my_queue.pop(0) # Removes 'Job 1'
+print(f"Dequeued job: {job}") # Output: Job 1
+print(f"Queue after dequeue: {my_queue}") # Output: ['Job 2', 'Job 3']
+```
+
+**Recommended implementation with collections.deque:**
+
+```py
+from collections import deque
+
+my_queue = deque()
+my_queue.append('Job 1') # O(1)
+my_queue.append('Job 2') # O(1)
+
+job = my_queue.popleft() # O(1) - Efficient!
+```
 
 #### <a name="chapter5part29"></a>Chapter 5 - Part 29: What are linked lists?
 
+A linked list is a linear data structure where elements are not stored in contiguous memory locations. Instead, each element (called a node) contains a data field and a pointer (or reference) to the next node in the sequence.
+
+**Key characteristics:**
+
+- Non-contiguous memory: Unlike arrays or lists, nodes can be scattered throughout memory.
+
+- Nodes: Each node consists of:
+  - Data: The value stored in the node.
+  - Next Pointer: A reference to the next node in the list. The last node's pointer is typically None.
+
+- Dynamic size: They can grow and shrink easily.
+
+- Efficient insertions and deletions: Adding or removing a node is a fast O(1) operation once the position is found, as it only requires updating a few pointers.
+
+- Inefficient access: Accessing an element by its index is slow (O(n)) because you have to traverse the list from the beginning.
+
+Linked lists are not a built-in data type in Python, but you can implement them using classes. They are a common topic in computer science interviews to test understanding of data structures.
+
 #### <a name="chapter5part30"></a>Chapter 5 - Part 30: How do you implement a binary tree in Python?
+
+A binary tree is a tree data structure where each node has at most two children, referred to as the left child and the right child.
+
+You can implement a binary tree in Python using a class for the nodes. Each Node object will contain:
+
+- data: The value stored in the node.
+
+- left: A pointer/reference to the left child node.
+
+- right: A pointer/reference to the right child node.
+
+**Basic Implementation (with insertion):**
+
+```py
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self, root_data):
+        self.root = Node(root_data)
+
+    def insert(self, data):
+        """A simple insertion method for a basic binary tree."""
+        new_node = Node(data)
+        if self.root is None:
+            self.root = new_node
+            return
+
+        current = self.root
+        while True:
+            if data < current.data:
+                if current.left is None:
+                    current.left = new_node
+                    return
+                current = current.left
+            elif data > current.data:
+                if current.right is None:
+                    current.right = new_node
+                    return
+                current = current.right
+            else:
+                # Handle duplicates as needed
+                return
+```
+
+More complex trees (like Binary Search Trees) have specific rules for insertion and are often implemented with recursive functions.
 
 #### <a name="chapter5part31"></a>Chapter 5 - Part 31: What is a hash table?
 
+A hash table (or hash map) is a data structure that implements an associative array or dictionary. It stores key-value pairs and uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.
+
+**Key characteristics:**
+
+- Fast Lookups: Hash tables are designed for very fast average-case time complexity of O(1) for insertion, deletion, and access operations.
+
+- Hash Function: A function that takes a key and returns a unique (or nearly unique) integer hash value. The hash value is used to map the key to a specific index in the array.
+
+- Collision Handling: Because different keys can sometimes produce the same hash value, a collision resolution strategy is needed (e.g., chaining or open addressing).
+
+- Unordered: The order of elements is not guaranteed.
+
+In Python, the dictionary (dict) data type is a highly optimized and efficient implementation of a hash table. The keys of a dictionary must be hashable, which is why mutable objects like lists cannot be used as keys.
+
+**Basic Implementation Hash Table**
+
+```py
+class HashTable:
+    """
+    A basic implementation of a hash table using a list of lists for chaining to handle collisions.
+    
+    Attributes:
+        size (int): The number of buckets in the hash table.
+        table (list): The list of buckets, where each bucket is a list to handle collisions.
+    """
+
+    def __init__(self, size=10):
+        """
+        Initializes the hash table with a specified size.
+        """
+        self.size = size
+        # We use a list of lists to create 'buckets' for each index.
+        # This allows us to store multiple key-value pairs at the same index
+        # to handle collisions (also known as chaining).
+        self.table = [[] for _ in range(self.size)]
+
+    def _hash(self, key):
+        """
+        A simple hash function that converts a key into an index.
+        
+        This hash function sums the ASCII values of the characters in the key
+        and then uses the modulo operator to fit the result within the
+        bounds of the hash table's size.
+        
+        Args:
+            key (str): The key to be hashed.
+            
+        Returns:
+            int: The index where the key-value pair should be stored.
+        """
+        return sum(ord(char) for char in key) % self.size
+
+    def set(self, key, value):
+        """
+        Adds a new key-value pair to the hash table.
+        
+        If the key already exists, its value is updated.
+        Collisions are handled using chaining.
+        """
+        index = self._hash(key)
+        # Get the bucket at the calculated index.
+        bucket = self.table[index]
+        
+        # Check if the key already exists in the bucket.
+        # If so, update the value and return.
+        for i, (existing_key, _) in enumerate(bucket):
+            if existing_key == key:
+                bucket[i] = (key, value)
+                return
+        
+        # If the key doesn't exist, add the new key-value pair to the bucket.
+        bucket.append((key, value))
+
+    def get(self, key):
+        """
+        Retrieves the value associated with a given key.
+        
+        Args:
+            key (str): The key to search for.
+            
+        Returns:
+            The value associated with the key, or None if the key is not found.
+        """
+        index = self._hash(key)
+        bucket = self.table[index]
+        
+        # Iterate through the bucket to find the key.
+        for existing_key, value in bucket:
+            if existing_key == key:
+                return value
+        
+        # Return None if the key is not found in the bucket.
+        return None
+
+    def delete(self, key):
+        """
+        Removes a key-value pair from the hash table.
+        
+        Args:
+            key (str): The key of the item to delete.
+            
+        Returns:
+            bool: True if the item was deleted, False otherwise.
+        """
+        index = self._hash(key)
+        bucket = self.table[index]
+
+        # Use a for loop with a mutable index to allow deletion.
+        for i, (existing_key, _) in enumerate(bucket):
+            if existing_key == key:
+                del bucket[i]
+                return True
+        
+        # Return False if the key was not found.
+        return False
+
+    def __str__(self):
+        """
+        Provides a string representation of the hash table for easy printing.
+        """
+        output = []
+        for i, bucket in enumerate(self.table):
+            if bucket:
+                output.append(f"Bucket {i}: {bucket}")
+        return "\n".join(output)
+
+
+# --- Example Usage ---
+if __name__ == "__main__":
+    # Create a hash table with a default size (10).
+    my_hash_table = HashTable()
+
+    # Add some key-value pairs.
+    print("Adding key-value pairs:")
+    my_hash_table.set("apple", 1)
+    my_hash_table.set("banana", 2)
+    my_hash_table.set("cherry", 3)
+    my_hash_table.set("orange", 4)
+    my_hash_table.set("lemon", 5) # This might cause a collision with another key
+
+    # Let's see the table's state.
+    print(my_hash_table)
+    print("-" * 20)
+    
+    # Retrieve values.
+    print("Retrieving values:")
+    print(f"Value for 'apple': {my_hash_table.get('apple')}")
+    print(f"Value for 'cherry': {my_hash_table.get('cherry')}")
+    print(f"Value for 'grape' (not in table): {my_hash_table.get('grape')}")
+    print("-" * 20)
+
+    # Update a value.
+    print("Updating value for 'apple':")
+    my_hash_table.set("apple", 100)
+    print(f"New value for 'apple': {my_hash_table.get('apple')}")
+    print("-" * 20)
+
+    # Delete a key-value pair.
+    print("Deleting 'banana':")
+    my_hash_table.delete("banana")
+    print("Hash table after deletion:")
+    print(my_hash_table)
+    print("-" * 20)
+    
+    # Demonstrate another key and collision handling
+    # Let's add 'apricot', which might hash to the same index as another fruit.
+    # The simple hash function for 'apricot' is sum(ord(c) for c) % 10 = 931 % 10 = 1.
+    # The hash function for 'banana' is sum(ord(c) for c) % 10 = 618 % 10 = 8.
+    # Let's find two keys that collide for a size of 10.
+    # 'apple' -> 514 % 10 = 4
+    # 'cherry' -> 643 % 10 = 3
+    # 'grapes' -> 651 % 10 = 1
+    # 'oranges' -> 735 % 10 = 5
+    # Let's find some that collide manually:
+    # 'cat' -> 300 % 10 = 0
+    # 'dog' -> 313 % 10 = 3
+    # 'bat' -> 295 % 10 = 5
+    # 'tab' -> 295 % 10 = 5. They collide!
+    
+    print("Demonstrating a collision with 'bat' and 'tab':")
+    collision_table = HashTable()
+    collision_table.set("bat", "A flying animal")
+    collision_table.set("tab", "A small marker")
+    print(collision_table)
+    print(f"Value for 'bat': {collision_table.get('bat')}")
+    print(f"Value for 'tab': {collision_table.get('tab')}")
+```
+
 #### <a name="chapter5part32"></a>Chapter 5 - Part 32: What is list slicing?
 
+List slicing is a feature in Python that allows you to extract a portion of a list (a sublist) by specifying a range of indices. It is a very versatile and readable way to manipulate lists without modifying the original.
+
+The syntax for slicing is: list[start:stop:step]
+
+- start: The index where the slice begins (inclusive). Default is 0.
+
+- stop: The index where the slice ends (exclusive). Default is the end of the list.
+
+- step: The number of elements to skip between each selected item. Default is 1.
+
+```py
+my_list = [10, 20, 30, 40, 50, 60, 70, 80]
+
+# Get a slice from index 2 to 5 (exclusive)
+sub_list = my_list[2:5] # Output: [30, 40, 50]
+
+# Get a slice from the beginning to index 4
+sub_list_2 = my_list[:5] # Output: [10, 20, 30, 40, 50]
+
+# Get a slice from index 3 to the end
+sub_list_3 = my_list[3:] # Output: [40, 50, 60, 70, 80]
+
+# Get a slice with a step of 2
+sub_list_4 = my_list[1:7:2] # Output: [20, 40, 60]
+
+# Reverse the list using a negative step
+reversed_list = my_list[::-1] # Output: [80, 70, 60, 50, 40, 30, 20, 10]
+
+# A shallow copy of the entire list
+shallow_copy = my_list[:]
+```
+
 #### <a name="chapter5part33"></a>Chapter 5 - Part 33: How do you unpack a list or a tuple?
+
+Unpacking is a convenient feature in Python that allows you to assign the elements of a list or tuple to individual variables in a single line. The number of variables must match the number of elements in the list or tuple.
+
+**Tuple Unpacking (most common):**
+
+```py
+coordinates = (10, 20, 30)
+x, y, z = coordinates
+print(f"x={x}, y={y}, z={z}") # Output: x=10, y=20, z=30
+```
+
+**List Unpacking:**
+
+```py
+numbers = [1, 2, 3]
+a, b, c = numbers
+print(f"a={a}, b={b}, c={c}") # Output: a=1, b=2, c=3
+```
+
+**Partial Unpacking with the * operator (Python 3+):**
+
+You can use the * operator to capture the remaining elements into a list. This is useful when you only need to extract certain elements and want to collect the rest.
+
+```py
+my_data = [10, 20, 30, 40, 50]
+
+# Get the first and last elements, and put the rest in a list
+first, *middle, last = my_data
+print(f"First: {first}")   # Output: First: 10
+print(f"Middle: {middle}") # Output: Middle: [20, 30, 40]
+print(f"Last: {last}")     # Output: Last: 50
+```
+
+Unpacking is a clean and "Pythonic" way to assign multiple variables at once and is a cornerstone of tuple-based programming patterns.
 
 ## <a name="chapter6"></a>Chapter 6: Functions
 
