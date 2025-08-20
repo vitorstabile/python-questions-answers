@@ -2743,43 +2743,586 @@ The with statement, powered by context managers, promotes cleaner, safer, and mo
 
 #### <a name="chapter5part1"></a>Chapter 5 - Part 1: What is a list in Python?
 
+A list is a built-in data type in Python that represents an ordered, mutable collection of items. Lists are one of the most versatile and commonly used data structures. They can hold items of different data types (e.g., integers, strings, other lists) and are a powerful way to store a sequence of data.
+
+**Key characteristics:**
+
+- **Ordered**: The items in a list have a defined order, which is preserved. You can access elements by their position (index).
+
+- **Mutable**: You can change, add, or remove items from a list after it's created.
+
+- **Heterogeneous**: A single list can contain items of different data types.
+
+- **Dynamic**: Lists can grow and shrink in size as needed.
+
+- **Created with square brackets []**: Items are enclosed within square brackets and separated by commas.
+
 #### <a name="chapter5part2"></a>Chapter 5 - Part 2: How do you create a list in Python?
+
+You can create a list in Python in several ways:
+
+- **Using square brackets [] (List literal)**: This is the most common and direct way to create a list.
+
+```py
+# An empty list
+my_list = []
+
+# A list of numbers
+numbers = [1, 2, 3, 4, 5]
+
+# A list of strings
+fruits = ['apple', 'banana', 'cherry']
+
+# A list with mixed data types
+mixed_list = [10, 'hello', 3.14, True]
+```
+
+- **Using the list() constructor**: You can convert other iterable objects (like tuples, strings, or sets) into a list using the list() constructor.
+
+```py
+# Creating a list from a tuple
+my_tuple = (1, 2, 3)
+new_list_from_tuple = list(my_tuple) # Output: [1, 2, 3]
+
+# Creating a list from a string
+my_string = "Python"
+new_list_from_string = list(my_string) # Output: ['P', 'y', 't', 'h', 'o', 'n']
+```
+
+- **Using List Comprehension**: This is a concise way to create a list based on an existing iterable.
+
+```py
+# Create a list of squares of numbers from 0 to 4
+squares = [x**2 for x in range(5)] # Output: [0, 1, 4, 9, 16]
+
+# Create a list of even numbers from a list
+numbers = [1, 2, 3, 4, 5, 6]
+even_numbers = [num for num in numbers if num % 2 == 0] # Output: [2, 4, 6]
+```
 
 #### <a name="chapter5part3"></a>Chapter 5 - Part 3: What is a tuple in Python?
 
+A tuple is a built-in data type in Python that represents an ordered, immutable collection of items. Like lists, tuples can hold items of different data types and maintain their order. However, the key difference is their immutability, meaning their contents cannot be changed after creation.
+
+**Key characteristics:**
+
+- **Ordered**: Elements have a defined order and can be accessed by index.
+
+- **Immutable**: You cannot add, remove, or modify elements in a tuple. This makes them "read-only" data structures.
+
+- **Heterogeneous**: Can contain items of different data types.
+
+- **Created with parentheses ()**: Items are enclosed within parentheses and separated by commas.
+
+Tuples are often used for collections of related but different data, such as coordinates (x, y) or database records, where the data should not be changed. They are also useful as keys in dictionaries because they are immutable and therefore hashable.
+
 #### <a name="chapter5part4"></a>Chapter 5 - Part 4: How do you access elements in a tuple?
+
+You can access elements in a tuple using indexing and slicing, just like with lists or strings, because tuples are ordered sequences.
+
+- **Indexing**: Use square brackets [] with an integer index to access a single element. Indices start at 0. Negative indices access elements from the end of the tuple, with -1 being the last element.
+
+```py
+my_tuple = ('apple', 'banana', 'cherry')
+
+# Access the first element
+print(my_tuple[0]) # Output: apple
+
+# Access the last element using negative indexing
+print(my_tuple[-1]) # Output: cherry
+```
+
+An IndexError will be raised if the index is out of range.
+
+- **Slicing**: Use the slicing syntax [start:stop:step] to extract a sub-tuple (a portion of the tuple). This creates a new tuple.
+
+```py
+numbers = (10, 20, 30, 40, 50, 60)
+
+# Get elements from index 1 to 3 (exclusive)
+print(numbers[1:4]) # Output: (20, 30, 40)
+
+# Get the last two elements
+print(numbers[-2:]) # Output: (50, 60)
+```
+
+- **Looping**: You can iterate over a tuple using a for loop.
+
+```py
+for fruit in ('apple', 'banana', 'cherry'):
+    print(fruit)
+```
 
 #### <a name="chapter5part5"></a>Chapter 5 - Part 5: What are the main differences between lists and tuples?
 
+|Feature |	List (list) |	Tuple (tuple) |
+| :--: | :--: | :--: |
+|Mutability |	Mutable (changeable). Can add, remove, modify elements. |	Immutable (unchangeable). Cannot modify after creation. |
+|Syntax |	Square brackets []. |	Parentheses (). |
+|Performance |	Generally slightly slower for iteration and access due to mutability overhead. |	Generally faster than lists, especially for iteration. |
+|Use Case |	Storing homogeneous collections where items might be modified (e.g., a list of users, a shopping cart). |	Storing heterogeneous, fixed data (e.g., coordinates, database records, function return values). |
+|Hashability |	Not hashable. Cannot be used as dictionary keys or in sets. |	Hashable (if its elements are also hashable). Can be used as dictionary keys or in sets. |
+|Methods |	Has many methods for modification (.append(), .pop(), .sort()). |	Has few methods, mostly for inspection (.count(), .index()). |
+
+Analogy: Think of a list as a whiteboard where you can erase and add things, and a tuple as a stone tablet where the text is permanently inscribed.
+
 #### <a name="chapter5part6"></a>Chapter 5 - Part 6: What is a dictionary in Python?
+
+A dictionary is a built-in data type that represents an unordered, mutable collection of key-value pairs. It's a fundamental mapping type in Python. Each key in a dictionary must be unique and is used to retrieve its associated value.
+
+**Key characteristics:**
+
+- **Key-Value Pairs: Stores data in a key: value format.
+
+- **Unordered (pre-Python 3.7)**: In Python 3.6 and earlier, dictionaries did not preserve insertion order. As of Python 3.7, they do, and this behavior is a language feature.
+
+- **Mutable**: You can add, remove, and modify key-value pairs after the dictionary is created.
+
+- **Keys are unique and immutable**: Each key must be unique, and it must be an immutable type (like a string, number, or tuple).
+
+- **Values can be anything**: Values can be of any data type and can be duplicates.
+
+- **Created with curly braces {}**: {'key1': 'value1', 'key2': 'value2'}.
+
+Dictionaries are highly optimized for retrieving a value when the key is known, making them perfect for lookups.
 
 #### <a name="chapter5part7"></a>Chapter 5 - Part 7: How do you create a dictionary?
 
+You can create a dictionary in Python in a few ways:
+
+- **Using curly braces {} (Dictionary literal)**: This is the most common way.
+
+```py
+# An empty dictionary
+my_dict = {}
+
+# A dictionary with key-value pairs
+person = {
+    'name': 'Alice',
+    'age': 30,
+    'city': 'New York'
+}
+
+# A dictionary with mixed key/value types
+data = {1: 'one', 'two': 2, 3.14: True}
+```
+
+- **Using the dict() constructor**:
+
+  - From keyword arguments: 
+
+```py
+person = dict(name='Alice', age=30, city='New York')
+# Output: {'name': 'Alice', 'age': 30, 'city': 'New York'}
+```
+
+  - From an iterable of key-value pairs (tuples or lists of length 2):
+
+```py
+pairs = [('a', 1), ('b', 2), ('c', 3)]
+my_dict = dict(pairs) # Output: {'a': 1, 'b': 2, 'c': 3}
+```
+
+- **Using Dictionary Comprehension**: This is a concise way to create a dictionary from an existing iterable.
+
+```py
+# Create a dictionary where keys are numbers and values are their squares
+squares = {x: x**2 for x in range(5)}
+# Output: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+```
+
 #### <a name="chapter5part8"></a>Chapter 5 - Part 8: How do you access and modify dictionary elements?
+
+You access and modify dictionary elements using their keys.
+
+**Accessing Elements**:
+
+- **Using square brackets []**: The most common way. If the key doesn't exist, it will raise a KeyError.
+
+```py
+student = {'name': 'Bob', 'age': 25}
+print(student['name']) # Output: Bob
+# print(student['city']) # This would cause a KeyError
+```
+
+- **Using the .get() method**: This is a safer way to access elements. It returns None (or a specified default value) if the key is not found, instead of raising an error.
+
+```py
+student = {'name': 'Bob', 'age': 25}
+print(student.get('name')) # Output: Bob
+print(student.get('city', 'City not specified')) # Output: City not specified
+```
+
+**Modifying Elements:**
+
+- **Updating an existing value**: Use square brackets to assign a new value to an existing key
+
+```py
+student = {'name': 'Bob', 'age': 25}
+student['age'] = 26
+print(student) # Output: {'name': 'Bob', 'age': 26}
+```
+
+- **Adding a new key-value pair**: Use square brackets to assign a value to a new key.
+
+```py
+student['major'] = 'Computer Science'
+print(student) # Output: {'name': 'Bob', 'age': 26, 'major': 'Computer Science'}
+```
+
+- **Removing an element**: Use the del keyword or the .pop() method.
+
+```py
+del student['city'] # Removes 'city' key
+# or
+major = student.pop('major') # Removes 'major' key and returns its value
+```
 
 #### <a name="chapter5part9"></a>Chapter 5 - Part 9: What is a set in Python?
 
+A set is a built-in data type that represents an unordered, mutable collection of unique, hashable items. Sets are particularly useful for performing mathematical set operations like unions, intersections, and differences, and for efficiently checking for the existence of an item.
+
+**Key characteristics:**
+
+- **Unordered**: Items in a set do not have a defined order or index. You cannot access elements by position.
+
+- **Mutable**: You can add or remove items from a set.
+
+- **Unique Elements**: A set cannot contain duplicate items. Adding a duplicate item has no effect.
+
+- **Hashable Elements**: All items in a set must be hashable, meaning they must be immutable (e.g., numbers, strings, tuples). Mutable types like lists and dictionaries cannot be elements of a set.
+
+- **Created with curly braces {}**: Items are enclosed in curly braces. An empty set must be created with set(), not {}
+
 #### <a name="chapter5part10"></a>Chapter 5 - Part 10: How do you create a set?
+
+You can create a set in Python in two main ways:
+
+- **Using curly braces {} (Set literal)**: This is the most common way for non-empty sets.
+
+```py
+# A set of numbers (duplicates are automatically removed)
+my_set = {1, 2, 3, 2, 4} # Output: {1, 2, 3, 4}
+
+# A set of strings
+fruits = {'apple', 'banana', 'cherry'}
+```
+
+Important Note: To create an empty set, you must use the set() constructor. Using {} creates an empty dictionary.
+
+```py
+empty_dict = {}
+empty_set = set()
+print(type(empty_dict)) # Output: <class 'dict'>
+print(type(empty_set))  # Output: <class 'set'>
+```
+
+- **Using the set() constructor**: You can convert any iterable (like a list, tuple, or string) into a set. This is a common way to quickly get a collection of unique items.
+
+```py
+# Create a set from a list, which removes duplicates
+numbers_list = [10, 20, 20, 30, 40]
+unique_numbers = set(numbers_list) # Output: {10, 20, 30, 40}
+
+# Create a set from a string, which gets unique characters
+my_string = "hello world"
+unique_chars = set(my_string) # Output: {'o', ' ', 'd', 'e', 'h', 'l', 'r', 'w'}
+```
 
 #### <a name="chapter5part11"></a>Chapter 5 - Part 11: What is the difference between a shallow copy and a deep copy in Python dictionaries?
 
+The difference between a shallow copy and a deep copy is about how they handle nested objects.
+
+- A shallow copy creates a new dictionary, but it doesn't create copies of the nested objects within it. Instead, it copies references to those nested objects from the original. This means that if you modify a mutable nested object in the shallow copy, the change will also be reflected in the original dictionary, and vice-versa, because they both point to the same nested object in memory.
+
+- A deep copy creates a new dictionary and recursively creates copies of all nested objects. This ensures that the new dictionary is a completely independent replica of the original. Modifying a nested object in a deep copy will not affect the original dictionary.
+
+You can create a shallow copy of a dictionary using the .copy() method or the dict() constructor. You need to use the copy module's deepcopy() function for a deep copy.
+
+```py
+import copy
+
+original_dict = {'a': 1, 'nested_list': [1, 2, 3]}
+
+# Shallow copy
+shallow_copy = original_dict.copy()
+
+# Deep copy
+deep_copy = copy.deepcopy(original_dict)
+
+# Modify the nested list in both copies
+shallow_copy['nested_list'].append(4)
+deep_copy['nested_list'].append(5)
+
+print(f"Original: {original_dict}") # Output: Original: {'a': 1, 'nested_list': [1, 2, 3, 4]} 👈 Affected by shallow copy
+print(f"Shallow: {shallow_copy}")    # Output: Shallow: {'a': 1, 'nested_list': [1, 2, 3, 4]}
+print(f"Deep: {deep_copy}")          # Output: Deep: {'a': 1, 'nested_list': [1, 2, 3, 5]} 👈 Not affected by shallow copy
+```
+
 #### <a name="chapter5part12"></a>Chapter 5 - Part 12: What are the key differences between list and set data types?
+
+|Feature	|List (list)	|Set (set)|
+| :--: | :--: | :--: |
+|Ordering |	Ordered. Elements have a specific sequence and can be accessed by index. |	Unordered. Elements have no specific order or index. |
+|Duplicates |	Allows duplicates. A list can contain multiple identical elements. |	Does not allow duplicates. All elements must be unique. |
+|Mutability |	Mutable. You can add, remove, and modify elements. |	Mutable. You can add and remove elements. |
+|Use Case |	Storing sequences of items where order and duplicates matter. |	Storing unique, non-ordered collections, useful for membership testing and mathematical set operations. |
+|Syntax	 | Square brackets []. |	Curly braces {} (except for empty sets, which use set()). |
+|Elements |	Can store any type of object. |	Can only store hashable (immutable) objects, such as numbers, strings, or tuples. |
 
 #### <a name="chapter5part13"></a>Chapter 5 - Part 13: Explain the concept of a generator in Python and how it differs from a list.
 
+A generator is a function that returns an iterator object. Generators are memory-efficient because they yield one item at a time instead of storing all items in memory at once. They don't compute all their values upfront; they compute and yield values on the fly, a concept known as lazy evaluation.
+
+**Differences between a Generator and a List:**
+
+|Feature  |	Generator |	List |
+| :--: | :--: | :--: |
+|Memory Usage |	Low. Computes and yields one item at a time, making it highly memory-efficient for large datasets. |	High. Stores all items in memory at once, which can be inefficient for large datasets. |
+|Evaluation |	Lazy Evaluation. Values are produced only when requested. |	Eager Evaluation. All values are computed and stored in memory immediately upon creation. |
+|Iteration |	Single-use. Can only be iterated over once. |	Multi-use. Can be iterated over multiple times. |
+|Syntax |	Created with a function containing the yield keyword. |	Created with square brackets [] or the list() constructor. |
+
+```py
+# List stores all values in memory
+def square_list(nums):
+    return [num**2 for num in nums]
+
+# Generator yields one value at a time
+def square_generator(nums):
+    for num in nums:
+        yield num**2
+
+# Demonstrate memory efficiency with large range
+my_list = square_list(range(1000000)) # Stores all 1M items in memory
+my_gen = square_generator(range(1000000)) # No items are stored yet
+
+# Generators are single-use
+for value in my_gen:
+    # Do something with each value
+    pass
+# my_gen is now exhausted and cannot be iterated over again
+```
+
 #### <a name="chapter5part14"></a>Chapter 5 - Part 14: Discuss the characteristics of the bytes and bytearray data types in Python.
+
+The bytes and bytearray data types are used to handle sequences of raw bytes (integers in the range 0 to 255). They are essential when dealing with binary data.
+
+- bytes: This data type is an immutable sequence of bytes. Once created, its contents cannot be changed. This makes bytes objects hashable, allowing them to be used as dictionary keys or elements in sets. They are created with a b prefix or using the bytes() constructor.
+
+- bytearray: This data type is a mutable sequence of bytes. Its contents can be modified after creation, which is useful for building up binary data incrementally or processing data streams. A bytearray object is not hashable because it's mutable. They are created using the bytearray() constructor.
+
+```py
+# bytes (immutable)
+immutable_bytes = b"hello"
+# immutable_bytes[0] = 104 # TypeError: 'bytes' object does not support item assignment
+
+# bytearray (mutable)
+mutable_bytes = bytearray(b"world")
+mutable_bytes[0] = ord('W') # Change 'w' to 'W'
+print(mutable_bytes) # Output: bytearray(b'World')
+```
 
 #### <a name="chapter5part15"></a>Chapter 5 - Part 15: How do you use the frozenset data type in Python?
 
+The frozenset is an immutable version of a set. It's an unordered collection of unique, hashable elements, just like a regular set, but once it's created, you cannot add or remove elements.
+
+The primary use of frozenset is when you need a set-like object that can be used as a key in a dictionary or as an element in another set. This is possible because frozenset objects are immutable and therefore hashable. Regular set objects are mutable and cannot be used in these contexts.
+
+You create a frozenset using the frozenset() constructor, passing an iterable to it.
+
+```py
+# A regular set
+my_set = {1, 2, 3}
+
+# A frozenset
+immutable_set = frozenset([1, 2, 3])
+
+# You can add/remove from a set, but not a frozenset
+my_set.add(4)
+# immutable_set.add(4) # AttributeError: 'frozenset' object has no attribute 'add'
+
+# Use frozenset as a dictionary key (not possible with a regular set)
+my_dict = {
+    frozenset([1, 2]): "pair",
+    frozenset([3, 4]): "another pair"
+}
+print(my_dict[frozenset([1, 2])]) # Output: pair
+```
+
 #### <a name="chapter5part16"></a>Chapter 5 - Part 16: How do you use the zip function in Python?
+
+The zip() function is used to combine multiple iterables (like lists or tuples) into a single iterator of tuples. Each tuple contains the elements from the corresponding positions of the input iterables. The zip() iterator stops when the shortest input iterable is exhausted.
+
+**Syntax: ```zip(*iterables)```**
+
+**Example 1: Basic usage**
+
+```py
+names = ['Alice', 'Bob', 'Charlie']
+ages = [30, 25, 35]
+
+zipped = zip(names, ages)
+print(list(zipped))
+# Output: [('Alice', 30), ('Bob', 25), ('Charlie', 35)]
+```
+
+**Example 2: Unzipping**
+
+You can use zip() again, along with the * operator, to "unzip" a zipped iterable back into separate iterables.
+
+```py
+zipped_list = [('Alice', 30), ('Bob', 25), ('Charlie', 35)]
+names, ages = zip(*zipped_list) # The * unpacks the list of tuples as separate arguments
+print(names) # Output: ('Alice', 'Bob', 'Charlie')
+print(ages)  # Output: (30, 25, 35)
+```
 
 #### <a name="chapter5part17"></a>Chapter 5 - Part 17: How do you reverse a list in Python?
 
+You can reverse a list in Python in three main ways:
+
+- **Using the reverse() method (in-place reversal)**: This method modifies the original list directly without creating a new one. It returns None.
+
+```py
+my_list = [1, 2, 3, 4]
+my_list.reverse()
+print(my_list) # Output: [4, 3, 2, 1]
+```
+
+- **Using the reversed() function**: This built-in function returns an iterator that yields the elements of the original list in reverse order. It does not modify the original list. You must convert the iterator to a list if you need a new list object.
+
+```py
+my_list = [1, 2, 3, 4]
+reversed_list = list(reversed(my_list))
+print(reversed_list) # Output: [4, 3, 2, 1]
+print(my_list)       # Original list is unchanged: [1, 2, 3, 4]
+```
+
+- **Using slicing ([::-1])**: This is a concise and commonly used method. It creates a new reversed list without modifying the original.
+
+```py
+my_list = [1, 2, 3, 4]
+reversed_list = my_list[::-1]
+print(reversed_list) # Output: [4, 3, 2, 1]
+print(my_list)       # Original list is unchanged: [1, 2, 3, 4]
+```
+
+This method is often preferred for its readability and conciseness, as it's immediately clear that a reversed copy is being made.
+
 #### <a name="chapter5part18"></a>Chapter 5 - Part 18: What is the map() function?
+
+The map() function is a built-in function that applies a given function to every item of an iterable and returns a map object (an iterator). It provides a concise way to perform a transformation on all elements of a collection without writing an explicit loop.
+
+**Syntax: map(function, iterable)**
+
+- function: The function to be applied to each item.
+
+- iterable: The sequence whose items will be processed.
+
+The map object is a generator-like iterator, meaning it produces results one by one as they are needed, which is memory-efficient. You typically convert it to a list or tuple to see the results.
+
+```py
+numbers = [1, 2, 3, 4]
+
+# Using a regular function
+def square(num):
+    return num**2
+
+squared_numbers_map = map(square, numbers)
+print(list(squared_numbers_map)) # Output: [1, 4, 9, 16]
+
+# Using a lambda function (more common with map)
+squared_numbers_lambda = map(lambda num: num**2, numbers)
+print(list(squared_numbers_lambda)) # Output: [1, 4, 9, 16]
+
+# Using map with multiple iterables (function must accept multiple arguments)
+first = [1, 2, 3]
+second = [4, 5, 6]
+added_numbers = map(lambda x, y: x + y, first, second)
+print(list(added_numbers)) # Output: [5, 7, 9]
+```
 
 #### <a name="chapter5part19"></a>Chapter 5 - Part 19: How do you filter elements in a list?
 
+The most common ways to filter elements from a list in Python are using list comprehension or the built-in filter() function.
+
+- **List Comprehension (Recommended for most cases)**:
+
+This is the most Pythonic and readable way to filter a list. It creates a new list containing only the elements that satisfy a given condition.
+
+**Syntax: [expression for item in iterable if condition]**
+
+Example:
+
+```py
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Filter for even numbers
+even_numbers = [num for num in numbers if num % 2 == 0]
+print(even_numbers) # Output: [2, 4, 6, 8, 10]
+
+# Filter for strings starting with 'P'
+words = ["Apple", "Python", "Banana", "Java"]
+p_words = [word for word in words if word.startswith('P')]
+print(p_words) # Output: ['Python']
+```
+
+- **Using the filter() function:**
+
+The filter() function provides an alternative for filtering. It takes a function and an iterable, and it returns a filter object (an iterator) containing only the elements for which the function returns True.
+
+Example:
+
+```py
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+def is_even(num):
+    return num % 2 == 0
+
+filtered_numbers = filter(is_even, numbers)
+print(list(filtered_numbers)) # Output: [2, 4, 6, 8, 10]
+
+# Using a lambda function (more common with filter)
+filtered_numbers_lambda = filter(lambda num: num > 5, numbers)
+print(list(filtered_numbers_lambda)) # Output: [6, 7, 8, 9, 10]
+```
+
+While filter() works, list comprehensions are often preferred because they are generally more readable, especially for simple conditions, and are highly regarded as a Pythonic idiom.
+
 #### <a name="chapter5part20"></a>Chapter 5 - Part 20: What is the filter() function?
+
+The filter() function is a built-in function that constructs an iterator from elements of an iterable for which a function returns a truthy value. In essence, it "filters out" elements that do not satisfy a condition.
+
+**Syntax: filter(function, iterable)**
+
+- function: A function that takes one argument and returns a boolean value (True or False).
+
+- iterable: The sequence to be filtered.
+
+The filter object is an iterator that yields elements lazily, which means it's memory-efficient for large lists. Like map(), you typically need to convert the filter object to a list or another collection to view the results.
+
+Example:
+
+```py
+people = [
+    {'name': 'Alice', 'age': 30},
+    {'name': 'Bob', 'age': 25},
+    {'name': 'Charlie', 'age': 35}
+]
+
+# Define a function to filter for people over 30
+def is_over_thirty(person):
+    return person['age'] > 30
+
+# Use filter()
+over_thirty_filter = filter(is_over_thirty, people)
+print(list(over_thirty_filter))
+# Output: [{'name': 'Charlie', 'age': 35}]
+
+# Use filter with a lambda function
+over_25_filter = filter(lambda person: person['age'] > 25, people)
+print(list(over_25_filter))
+# Output: [{'name': 'Alice', 'age': 30}, {'name': 'Charlie', 'age': 35}]
+```
 
 #### <a name="chapter5part21"></a>Chapter 5 - Part 21: What is the reduce() function?
 
