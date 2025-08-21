@@ -4308,43 +4308,612 @@ Use nonlocal when you need to modify a variable in an enclosing function's scope
 
 #### <a name="chapter7part1"></a>Chapter 7 - Part 1: What is a class in Python?
 
+A class is a blueprint or a template for creating objects. It defines a set of attributes (data) and methods (functions) that the objects created from it will have. Think of a class as a blueprint for a car; it defines what a car is and what it can do, but it isn't a specific car itself.
+
 #### <a name="chapter7part2"></a>Chapter 7 - Part 2: How do you create an object in Python?
+
+You create an object (also called an instance) from a class by calling the class name as if it were a function. This process is called instantiation.
+
+```py
+class Car:
+    def __init__(self, color):
+        self.color = color
+
+# Create an object (instance) of the Car class
+my_car = Car("blue")
+your_car = Car("red")
+
+print(f"My car is {my_car.color}.") # Accessing the object's attribute
+```
 
 #### <a name="chapter7part3"></a>Chapter 7 - Part 3: What is the __init__ method?
 
+The __init__ method is a special method in a Python class that acts as a constructor. It's automatically called when a new object is created from a class. Its primary purpose is to initialize the object's attributes with starting values. The self parameter in __init__ refers to the new object being created.
+
+```py
+class Dog:
+    # The __init__ method initializes the object's state
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+# When this line is executed, the __init__ method is called
+my_dog = Dog("Buddy", 5) 
+print(my_dog.name) # Output: Buddy
+```
+
 #### <a name="chapter7part4"></a>Chapter 7 - Part 4: What is inheritance in Python?
+
+Inheritance is a core concept of object-oriented programming where a new class, called the child class or subclass, inherits attributes and methods from an existing class, called the parent class or superclass. This promotes code reuse and establishes a logical "is-a" relationship (e.g., a Dog is an Animal).
+
+You implement inheritance by putting the parent class name in parentheses when defining the child class.
+
+```py
+class Animal: # Parent Class
+    def speak(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+
+class Dog(Animal): # Child Class inherits from Animal
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal): # Another child class
+    def speak(self):
+        return "Meow!"
+
+my_dog = Dog()
+print(my_dog.speak()) # Output: Woof!
+```
+
+
 
 #### <a name="chapter7part5"></a>Chapter 7 - Part 5: Explain method overriding in Python.
 
+Method overriding is a feature of inheritance where a subclass provides a specific implementation for a method that is already defined in its parent class. The overridden method in the child class has the same name, parameters, and return type as the parent's method. When the method is called on an object of the child class, Python executes the child's version, not the parent's.
+
+This is a way to specialize or change the behavior of an inherited method.
+
+```py
+class Vehicle:
+    def start_engine(self):
+        return "Generic engine starting."
+
+class Car(Vehicle):
+    # This method overrides the start_engine method from the parent class
+    def start_engine(self):
+        return "Car engine starting with a vroom!"
+
+my_vehicle = Vehicle()
+my_car = Car()
+
+print(my_vehicle.start_engine()) # Output: Generic engine starting.
+print(my_car.start_engine())     # Output: Car engine starting with a vroom!
+```
+
+You can call the parent class's method from the child class using super().method_name().
+
 #### <a name="chapter7part6"></a>Chapter 7 - Part 6: What is polymorphism in Python?
+
+Polymorphism means "many forms." In object-oriented programming, it refers to the ability of different objects to respond to the same method call in a unique way. It allows a single interface to be used for different data types.
+
+The most common form of polymorphism in Python is duck typing, which means if an object "walks like a duck and quacks like a duck," it's a duck. If objects have the same method name, you can call that method on them without worrying about their specific class type.
+
+```py
+class Dog:
+    def speak(self):
+        return "Woof!"
+
+class Cat:
+    def speak(self):
+        return "Meow!"
+
+class Duck:
+    def speak(self):
+        return "Quack!"
+
+def animal_sound(animal):
+    # The function doesn't care about the object's type, only that it has a 'speak' method.
+    return animal.speak()
+
+# All these objects respond differently to the same method call.
+print(animal_sound(Dog()))   # Output: Woof!
+print(animal_sound(Cat()))   # Output: Meow!
+print(animal_sound(Duck()))  # Output: Quack!
+```
+
+This flexibility allows for clean and extensible code.
 
 #### <a name="chapter7part7"></a>Chapter 7 - Part 7: How do you implement encapsulation?
 
+Encapsulation is the concept of bundling data (attributes) and the methods that operate on that data into a single unit (a class). It also involves restricting access to some of an object's components, which is known as data hiding.
+
+Python does not have strict private access modifiers like private or public found in other languages. Instead, it uses a convention-based approach:
+
+- **Single leading underscore (_)**: Marks an attribute or method as "protected." This is a convention to signal to other developers that it's intended for internal use and should not be accessed directly from outside the class.
+
+- **Double leading underscore (__)**: Triggers name mangling. Python renames the attribute to prevent accidental access from subclasses or external code. For example, __private_attr becomes _ClassName__private_attr. While not true privacy, it makes it harder to access and signals a strong intention of privacy.
+
+```py
+class MyClass:
+    def __init__(self):
+        self.public_attribute = "I am public"
+        self._protected_attribute = "I am protected" # Convention only
+        self.__private_attribute = "I am private" # Name mangling applied
+
+    def get_private_attr(self):
+        return self.__private_attribute
+
+# Public access works fine
+obj = MyClass()
+print(obj.public_attribute)
+
+# Accessing protected attribute is possible, but discouraged
+print(obj._protected_attribute)
+
+# Direct access to private attribute will fail
+# print(obj.__private_attribute) # AttributeError
+
+# Access via name mangling (not recommended practice)
+print(obj._MyClass__private_attribute)
+```
+
 #### <a name="chapter7part8"></a>Chapter 7 - Part 8: What are class methods and static methods?
+
+Both are special types of methods defined within a class, but they operate differently from regular instance methods.
+
+- **Instance Methods:**
+  - Take self as the first argument, which refers to the specific instance of the class.
+  - Can access and modify instance-specific attributes.
+  - Most common type of method.
+ 
+- **Class Methods:**
+  - Decorated with @classmethod.
+  - Take cls as the first argument, which refers to the class itself, not an instance.
+  - Can access and modify class attributes.
+  - Commonly used as alternative constructors to create an instance in a specific way.
+  - Syntax: def my_classmethod(cls, ...):
+ 
+- **Static Methods:**
+  - Decorated with @staticmethod.
+  - Take no special first argument (self or cls). They are just regular functions conceptually.
+  - Cannot access or modify either instance or class attributes.
+  - They are simply grouped within the class for logical organization and do not depend on the state of the class or its instances.
+  - Syntax: def my_static_method(...):
+
+```py
+class Circle:
+    pi = 3.14159  # Class attribute
+
+    def __init__(self, radius):
+        self.radius = radius # Instance attribute
+
+    # Instance method
+    def area(self):
+        return self.pi * self.radius**2
+
+    # Class method
+    @classmethod
+    def from_diameter(cls, diameter):
+        # A class method as an alternative constructor
+        return cls(diameter / 2)
+
+    # Static method
+    @staticmethod
+    def is_valid_radius(radius):
+        return radius > 0
+
+c1 = Circle(10) # Instance method works on this instance
+print(f"Area: {c1.area()}")
+
+c2 = Circle.from_diameter(20) # Class method creates a new instance
+print(f"Radius of c2: {c2.radius}")
+
+print(Circle.is_valid_radius(5)) # Static method called on the class
+```
+
 
 #### <a name="chapter7part9"></a>Chapter 7 - Part 9: What is the purpose of the self keyword?
 
+The self keyword is a convention for the first parameter of an instance method. Its purpose is to refer to the instance (object) itself that the method is being called on. It allows the method to access and modify the attributes and other methods of that specific object.
+
+When you call a method like my_car.drive(), Python automatically passes my_car as the first argument to the drive method. This argument is caught by the self parameter.
+
+```py
+class Car:
+    def __init__(self, color):
+        self.color = color # 'self' refers to the new object being created
+
+    def drive(self):
+        # 'self' allows access to the instance's attributes
+        print(f"The {self.color} car is driving.")
+
+my_car = Car("blue")
+my_car.drive() # Python internally calls Car.drive(my_car)
+```
+
+Without self, a method wouldn't know which object's data it should operate on.
+
 #### <a name="chapter7part10"></a>Chapter 7 - Part 10: What is multiple inheritance in Python?
+
+Multiple inheritance is a feature of object-oriented programming that allows a class to inherit from more than one parent class. The child class thus combines the attributes and methods of all its parent classes.
+
+You specify multiple parent classes in the class definition, separated by commas.
+
+```py
+class Flyer:
+    def fly(self):
+        return "I can fly!"
+
+class Swimmer:
+    def swim(self):
+        return "I can swim!"
+
+# Penguin can do both, so it inherits from both parents
+class Penguin(Flyer, Swimmer):
+    # Penguin has a specific way of flying and swimming
+    def fly(self):
+        return "I can't fly, but I can jump!"
+    def swim(self):
+        return "I'm a great swimmer!"
+
+my_penguin = Penguin()
+print(my_penguin.fly())  # Output: I can't fly, but I can jump!
+print(my_penguin.swim()) # Output: I'm a great swimmer!
+```
+
+**The Diamond Problem:**
+
+A potential issue with multiple inheritance is the "diamond problem," where a class inherits from two parent classes that share a common ancestor. This can lead to ambiguity about which method to use if a method is defined in the ancestor and both parent classes. Python resolves this with the Method Resolution Order (MRO), which uses a C3 linearization algorithm to determine the order in which to search for methods. You can view a class's MRO using ClassName.mro().
 
 #### <a name="chapter7part11"></a>Chapter 7 - Part 11: Explain the concept of abstract classes in Python.
 
+An abstract class is a blueprint for other classes that cannot be instantiated on its own. It's designed to be a parent class that forces its subclasses to implement certain methods, known as abstract methods. This ensures that all subclasses conform to a required structure or interface. Abstract classes and methods are a form of code contract.
+
+Python doesn't have a built-in concept for abstract classes like some other languages, but you can implement them using the abc (Abstract Base Classes) module.
+
+**How to create an abstract class:**
+
+- You must import the ABC class and the @abstractmethod decorator from the abc module.
+- The abstract class must inherit from ABC.
+- Any method that must be implemented by subclasses is decorated with @abstractmethod.
+
+If you try to create an object of an abstract class or a subclass that hasn't implemented all abstract methods, a TypeError will be raised.
+
+Example:
+
+```py
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def start_engine(self):
+        pass
+
+class Car(Vehicle):
+    def start_engine(self): # Must implement the abstract method
+        return "Car engine started."
+
+class Motorcycle(Vehicle):
+    def start_engine(self):
+        return "Motorcycle engine started."
+
+# my_vehicle = Vehicle() # This would raise a TypeError
+my_car = Car()
+my_motorcycle = Motorcycle()
+
+print(my_car.start_engine())
+print(my_motorcycle.start_engine())
+```
+
 #### <a name="chapter7part12"></a>Chapter 7 - Part 12: How do you implement interfaces in Python?
+
+Python doesn't have a formal interface keyword like Java. The closest and most Pythonic way to implement interfaces is to use abstract base classes (ABCs), which serve as a formal contract that forces subclasses to implement specific methods.
+
+An interface, in this context, is an abstract class that contains only abstract methods and no concrete (implemented) methods.
+
+**Steps to implement an interface**
+
+- Create an abstract class inheriting from abc.ABC.
+- Decorate all methods with @abstractmethod.
+- Any class that "implements" this interface must inherit from it and provide concrete implementations for all abstract methods.
+
+This approach uses polymorphism and duck typing to enforce a common API.
+
+```py
+from abc import ABC, abstractmethod
+
+class Payment(ABC): # This is our interface
+    @abstractmethod
+    def process_payment(self, amount):
+        pass
+
+    @abstractmethod
+    def refund(self, amount):
+        pass
+
+class CreditCardPayment(Payment):
+    def process_payment(self, amount):
+        print(f"Processing credit card payment of ${amount}.")
+
+    def refund(self, amount):
+        print(f"Refunding ${amount} to credit card.")
+
+# cash_payment = Payment() # TypeError: Cannot instantiate
+cc_payment = CreditCardPayment()
+cc_payment.process_payment(100)
+```
 
 #### <a name="chapter7part13"></a>Chapter 7 - Part 13: What are mixins in Python?
 
+A mixin is a class that provides a set of reusable functionalities for other classes. It's designed to be inherited from, but not to be instantiated on its own. Mixins add specific behaviors or capabilities to a class without creating a new logical "is-a" relationship, which is the purpose of regular inheritance.
+
+Mixins are a form of multiple inheritance where the mixin class doesn't have a direct parent and provides a specific feature.
+
+**Characteristics**
+
+- A mixin's name often ends with Mixin.
+- They don't have an __init__ method (or if they do, it's designed to be called by the inheriting class).
+- They are a form of "has-a" or "can-do" relationship, not an "is-a" relationship.
+
+```py
+class JSONSerializerMixin:
+    def to_json(self):
+        import json
+        return json.dumps(self.__dict__)
+
+class User(JSONSerializerMixin):
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+user = User("Alice", "alice@example.com")
+print(user.to_json()) # Output: {"name": "Alice", "email": "alice@example.com"}
+```
+
+The JSONSerializerMixin class provides a to_json method that any class can inherit to gain JSON serialization functionality.
+
 #### <a name="chapter7part14"></a>Chapter 7 - Part 14: What is the super() function used for?
+
+The super() function is used to call a method from the parent class (or a sibling class in more complex multiple inheritance hierarchies). Its main purpose is to enable subclasses to extend or customize the behavior of inherited methods without completely overriding them.
+
+**Common use cases:**
+
+- **Calling the parent's __init__ method**: This is the most frequent use of super(). It ensures that the parent class's constructor is executed, correctly initializing inherited attributes.
+- **Calling an overridden method**: When a subclass overrides a parent method, super() can be used to call the parent's implementation as part of the new, extended behavior.
+
+**Syntax: ```super().method_name(*args, **kwargs)```**
+
+```py
+class Parent:
+    def __init__(self, name):
+        self.name = name
+        print("Parent's __init__ called.")
+
+    def greet(self):
+        return f"Hello from {self.name}."
+
+class Child(Parent):
+    def __init__(self, name, age):
+        super().__init__(name) # Call the parent's __init__
+        self.age = age
+        print("Child's __init__ called.")
+
+    def greet(self):
+        # Extend the parent's method
+        parent_greeting = super().greet()
+        return f"{parent_greeting} I am a child."
+
+child = Child("Bob", 10)
+print(child.greet())
+# Output:
+# Parent's __init__ called.
+# Child's __init__ called.
+# Hello from Bob. I am a child.
+```
+
+super() is an essential tool for creating well-structured and maintainable class hierarchies.
 
 #### <a name="chapter7part15"></a>Chapter 7 - Part 15: How do you create a singleton class in Python?
 
+A singleton is a design pattern that restricts the instantiation of a class to a single object. No matter how many times you try to create an object from the class, you'll always get the same single instance.
+
+There are several ways to implement a singleton in Python, a common one is by overriding the __new__ method, which is the method responsible for creating the instance.
+
+Example using __new__:
+
+```py
+class Singleton:
+    _instance = None # A class variable to hold the single instance
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance: # Check if an instance already exists
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+# Create two instances
+s1 = Singleton()
+s2 = Singleton()
+
+# Both variables refer to the same object
+print(s1 is s2)      # Output: True
+print(id(s1) == id(s2)) # Output: True
+```
+
+Other methods include using a decorator or a metaclass, which offer more sophisticated and reusable solutions.
+
 #### <a name="chapter7part16"></a>Chapter 7 - Part 16: How do you implement method resolution order (MRO)?
+
+Method Resolution Order (MRO) is the order in which Python searches for a method in an inheritance hierarchy, particularly in cases of multiple inheritance. Python's MRO uses a C3 linearization algorithm to ensure that a method is found in a consistent and predictable way.
+
+You don't "implement" MRO yourself; Python's interpreter handles it automatically. However, you can check the MRO of any class to understand the search order.
+
+**Ways to check MRO:**
+- Use the mro() method on the class: ClassName.mro()
+- Use the __mro__ attribute: ClassName.__mro__
+
+```py
+class A:
+    def method(self):
+        print("A's method")
+
+class B(A):
+    def method(self):
+        print("B's method")
+
+class C(A):
+    def method(self):
+        print("C's method")
+
+class D(B, C): # Inherits from B and C
+    pass
+
+print(D.mro())
+# Output:
+# [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
+```
+
+The MRO ensures that the method is first looked for in D, then B, then C, and finally A and object. This prevents ambiguity and the "diamond problem" in multiple inheritance.
 
 #### <a name="chapter7part17"></a>Chapter 7 - Part 17: What are the differences between @staticmethod and @classmethod?
 
+|Feature	|@staticmethod	|@classmethod|
+| :--: | :--: | :--: |
+|First Arg	|None. It doesn't receive self or cls.	| cls. It receives the class itself as the first argument.|
+|Binding |	Bound to the class, not an instance or the class itself. |	Bound to the class.|
+|Usage	| Grouping a utility function logically within a class. It has no access to the class or instance state. |	Creating alternative constructors or accessing/modifying class-level attributes. |
+|Access	| Cannot access or modify instance or class attributes. |	Can access and modify class attributes, but not instance attributes.
+
+**Analogy:**
+
+- A staticmethod is like a generic helper function that just happens to be placed inside a class for organizational purposes. It doesn't know anything about the class or its instances.
+
+- A classmethod is like a factory method for the class. It knows about the class and can use that knowledge to create new instances or manipulate class-level state.
+
 #### <a name="chapter7part18"></a>Chapter 7 - Part 18: How do you use properties in classes?
+
+Properties provide a way to control access to instance attributes. They allow you to define methods for getting, setting, and deleting an attribute, giving you more control over its behavior.
+
+This is a clean way to implement a "getter" and "setter" without explicitly calling methods.
+
+You can create a property using the @property decorator.
+
+```py
+class Rectangle:
+    def __init__(self, width, height):
+        self._width = width # Convention to use an underscore for the private attribute
+        self._height = height
+
+    @property
+    def width(self):
+        """The getter method for the width property."""
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        """The setter method for the width property."""
+        if value <= 0:
+            raise ValueError("Width must be positive.")
+        self._width = value
+
+    @property
+    def area(self):
+        """A computed property that has no setter."""
+        return self._width * self._height
+
+r = Rectangle(10, 5)
+print(f"Initial width: {r.width}") # Calls the @property getter
+print(f"Area: {r.area}") # Calls the computed property
+
+r.width = 15 # Calls the @width.setter method
+print(f"New width: {r.width}")
+# r.area = 100 # Fails because there is no @area.setter
+```
 
 #### <a name="chapter7part19"></a>Chapter 7 - Part 19: What are class variables vs instance variables?
 
+|Feature	|Class Variables	| Instance Variables|
+| :--: | :--: | :--: |
+|Definition |	Defined directly inside the class, outside any method. |	Defined inside an instance method, usually __init__, and tied to self.|
+|Scope |	Shared among all instances of the class. Modifying it affects all objects. |	Specific to a single instance. Each object has its own copy.|
+|Access |	Can be accessed using the class name (ClassName.var) or an instance (instance.var). |	Accessed only through an instance (instance.var).|
+|Use Case |	Storing data that is common to all instances (e.g., constants, default values, counters). |	Storing data that is unique to each object (e.g., a person's name, a car's color).|
+
+```py
+class MyClass:
+    class_var = "I am a class variable" # Class variable
+
+    def __init__(self, name):
+        self.instance_var = name # Instance variable
+
+c1 = MyClass("Object 1")
+c2 = MyClass("Object 2")
+
+# Accessing a class variable via an instance
+print(c1.class_var) # Output: I am a class variable
+print(c2.class_var) # Output: I am a class variable
+
+# Modifying a class variable via the class
+MyClass.class_var = "Modified"
+print(c1.class_var) # Output: Modified
+print(c2.class_var) # Output: Modified
+
+# Accessing and modifying an instance variable
+print(c1.instance_var) # Output: Object 1
+c1.instance_var = "New Name"
+print(c1.instance_var) # Output: New Name
+print(c2.instance_var) # Output: Object 2 (unaffected)
+```
+
 #### <a name="chapter7part20"></a>Chapter 7 - Part 20: How do you prevent attribute modification in a class?
+
+You can prevent attribute modification in a class by using properties with no setter, using slots, or by making the attribute private with a double underscore.
+
+- **Using properties with no setter**: This is the most common and Pythonic approach. By defining a getter with @property and omitting the @setter decorator, you make the attribute read-only.
+
+```py
+class ImmutablePoint:
+    def __init__(self, x, y):
+        self._x = x
+        self._y = y
+
+    @property
+    def x(self):
+        return self._x
+
+    @property
+    def y(self):
+        return self._y
+
+p = ImmutablePoint(10, 20)
+print(p.x) # Output: 10
+# p.x = 30 # AttributeError: can't set attribute
+```
+
+- **Using __slots__**: The __slots__ attribute restricts the attributes an instance can have to a predefined set. It also prevents the creation of a __dict__ for each instance, which can save a lot of memory. This prevents the addition of new attributes but doesn't strictly prevent the modification of existing ones.
+
+```py
+class Point:
+    __slots__ = ('x', 'y')
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(1, 2)
+p.x = 3 # This is still allowed
+# p.z = 4 # This would raise an AttributeError
+```
+
+- **Using a double underscore __ (name mangling)**: While it doesn't strictly prevent modification, it makes it much harder to access and modify the attribute from outside the class. This is more of a signal of intent rather than a strict restriction.
+
+```py
+class LockedAttribute:
+    def __init__(self, value):
+        self.__value = value
+
+obj = LockedAttribute(10)
+# obj.__value = 20 # AttributeError
+# To modify, you must use name-mangling: obj._LockedAttribute__value = 20
+```
 
 ## <a name="chapter8"></a>Chapter 8: Modules and Packages
 
